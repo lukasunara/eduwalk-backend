@@ -1,6 +1,7 @@
 package hr.eduwalk.data.database
 
 import hr.eduwalk.data.database.table.UsersTable
+import hr.eduwalk.data.database.table.WalkTable
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -15,7 +16,10 @@ object DatabaseFactory {
         val database = Database.connect(jdbcURL, driverClassName)
 
         transaction(database) {
-            SchemaUtils.create(UsersTable)
+            SchemaUtils.create(
+                UsersTable,
+                WalkTable,
+            )
         }
     }
 
