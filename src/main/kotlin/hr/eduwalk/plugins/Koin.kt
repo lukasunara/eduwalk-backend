@@ -1,6 +1,6 @@
 package hr.eduwalk.plugins
 
-import hr.eduwalk.data.database.dao.UserDaoImpl
+import hr.eduwalk.data.dao.UserDaoImpl
 import hr.eduwalk.domain.interfaces.IUserDao
 import hr.eduwalk.domain.usecase.GetOrInsertUser
 import hr.eduwalk.domain.usecase.GetUser

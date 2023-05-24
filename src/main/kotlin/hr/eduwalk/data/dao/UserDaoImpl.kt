@@ -1,4 +1,4 @@
-package hr.eduwalk.data.database.dao
+package hr.eduwalk.data.dao
 
 import hr.eduwalk.data.database.DatabaseFactory.dbQuery
 import hr.eduwalk.data.database.table.UsersTable
