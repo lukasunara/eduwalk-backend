@@ -15,7 +15,7 @@ object DatabaseFactory {
 
     fun init() {
         val driverClassName = "org.sqlite.JDBC"
-        val jdbcURL = "jdbc:sqlite:./EduWalk"
+        val jdbcURL = "jdbc:sqlite:./build/EduWalk"
         val database = Database.connect(jdbcURL, driverClassName)
 
         transaction(database) {
