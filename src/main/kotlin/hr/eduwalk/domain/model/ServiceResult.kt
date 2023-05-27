@@ -12,3 +12,8 @@ fun ServiceResult<User>.toUserResponse() = when (this) {
     is ServiceResult.Success -> UserResponse(user = data)
     is ServiceResult.Error -> UserResponse(error = error)
 }
+
+fun ServiceResult<List<Question>>.toLocationQuestionsResponse() = when (this) {
+    is ServiceResult.Success -> LocationQuestionsResponse(questions = data)
+    is ServiceResult.Error -> LocationQuestionsResponse(error = error)
+}
