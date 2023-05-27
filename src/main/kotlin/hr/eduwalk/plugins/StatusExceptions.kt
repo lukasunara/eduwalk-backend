@@ -60,7 +60,7 @@ fun Application.configureStatusExceptions() {
 suspend fun sendBadUser(call: ApplicationCall) {
     val sampleUser = UserResponse(
         user = User(username = "username"),
-        errors = listOf(ResponseError(ErrorCode.INVALID_JSON, ErrorCode.INVALID_JSON.message)),
+        error = ResponseError(errorCode = ErrorCode.INVALID_JSON),
     )
     call.respond(status = HttpStatusCode.BadRequest, message = sampleUser)
 }

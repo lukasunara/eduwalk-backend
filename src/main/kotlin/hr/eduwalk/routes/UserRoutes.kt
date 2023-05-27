@@ -22,8 +22,7 @@ fun Route.userRoutes(
             val user = call.receive<User>()
 
             val userResponse = getOrInsertUser(user = user)
-            val httpStatusCode =
-                if (userResponse.errors.isEmpty()) HttpStatusCode.Created else HttpStatusCode.BadRequest
+            val httpStatusCode = if (userResponse.error == null) HttpStatusCode.Created else HttpStatusCode.BadRequest
 
             call.respond(status = httpStatusCode, message = userResponse)
         }
@@ -31,7 +30,7 @@ fun Route.userRoutes(
             val username = call.parameters.getOrFail("username")
 
             val userResponse = getUser(username = username)
-            val httpStatusCode = if (userResponse.errors.isEmpty()) HttpStatusCode.OK else HttpStatusCode.BadRequest
+            val httpStatusCode = if (userResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest
 
             call.respond(status = httpStatusCode, message = userResponse)
         }

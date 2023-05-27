@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserResponse(
     val user: User? = null,
-    val errors: List<ResponseError> = emptyList(),
+    val error: ResponseError? = null,
 )
