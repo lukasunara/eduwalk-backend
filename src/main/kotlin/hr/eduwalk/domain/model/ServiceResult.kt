@@ -1,5 +1,6 @@
 package hr.eduwalk.domain.model
 
+import hr.eduwalk.data.model.Location
 import hr.eduwalk.data.model.LocationScore
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
@@ -33,4 +34,9 @@ fun ServiceResult<WalkScore>.toWalkScoreResponse() = when (this) {
 fun ServiceResult<List<WalkScore>>.toWalkScoreTop5Response() = when (this) {
     is ServiceResult.Success -> WalkScoreTop5Response(walkScores = data)
     is ServiceResult.Error -> WalkScoreTop5Response(error = error)
+}
+
+fun ServiceResult<List<Location>>.toWalkLocationsResponse() = when (this) {
+    is ServiceResult.Success -> WalkLocationsResponse(locations = data)
+    is ServiceResult.Error -> WalkLocationsResponse(error = error)
 }

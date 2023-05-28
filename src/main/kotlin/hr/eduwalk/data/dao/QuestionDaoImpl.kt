@@ -39,7 +39,6 @@ class QuestionDaoImpl : IQuestionDao {
                     ErrorCode.DATABASE_ERROR
                 }
             }
-
             else -> ErrorCode.DATABASE_ERROR
         }
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
@@ -56,7 +55,6 @@ class QuestionDaoImpl : IQuestionDao {
                 println("Exception from getQuestionsForLocation(): ${e.errorCode}")
                 ErrorCode.DATABASE_ERROR
             }
-
             else -> ErrorCode.DATABASE_ERROR
         }
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
