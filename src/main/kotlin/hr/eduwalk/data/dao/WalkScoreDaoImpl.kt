@@ -9,6 +9,8 @@ import hr.eduwalk.domain.model.ResponseError
 import hr.eduwalk.domain.model.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SortOrder
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.isNotNull
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
@@ -60,18 +62,18 @@ class WalkScoreDaoImpl : IWalkScoreDao {
     }
 
     override suspend fun getWalkScoreForUser(walkId: String, userId: String): ServiceResult<WalkScore> = try {
-        val dbQuestionScore = DatabaseFactory.dbQuery {
+        val dbWalkScore = DatabaseFactory.dbQuery {
             WalkScoreTable.select {
                 WalkScoreTable.userId eq userId
                 WalkScoreTable.walkId eq walkId
-            }.map(::resultRowToQuestionScore).single()
+            }.map(::resultRowToWalkScore).single()
         }
-        ServiceResult.Success(data = dbQuestionScore)
+        ServiceResult.Success(data = dbWalkScore)
     } catch (e: Exception) {
         val errorCode = when (e) {
             is NoSuchElementException -> ErrorCode.UNKNOWN_WALK_SCORE
             is ExposedSQLException -> {
-                println("Exception from getQuestionScoreForUser(): ${e.errorCode}")
+                println("Exception from getWalkScoreForUser(): ${e.errorCode}")
                 ErrorCode.DATABASE_ERROR
             }
             else -> ErrorCode.DATABASE_ERROR
@@ -79,7 +81,28 @@ class WalkScoreDaoImpl : IWalkScoreDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    private fun resultRowToQuestionScore(row: ResultRow) = WalkScore(
+    override suspend fun getWalkScoreTop5(walkId: String): ServiceResult<List<WalkScore>> = try {
+        val dbWalkScores = DatabaseFactory.dbQuery {
+            WalkScoreTable.select { WalkScoreTable.walkId eq walkId }
+                .adjustWhere { WalkScoreTable.score.isNotNull() }
+                .orderBy(column = WalkScoreTable.score, order = SortOrder.DESC)
+                .limit(n = 5)
+                .map(::resultRowToWalkScore)
+        }
+        ServiceResult.Success(data = dbWalkScores)
+    } catch (e: Exception) {
+        val errorCode = when (e) {
+            is NoSuchElementException -> ErrorCode.UNKNOWN_WALK_SCORE
+            is ExposedSQLException -> {
+                println("Exception from getWalkScoreTop5(): ${e.errorCode}")
+                ErrorCode.DATABASE_ERROR
+            }
+            else -> ErrorCode.DATABASE_ERROR
+        }
+        ServiceResult.Error(error = ResponseError(errorCode = errorCode))
+    }
+
+    private fun resultRowToWalkScore(row: ResultRow) = WalkScore(
         userId = row[WalkScoreTable.userId],
         walkId = row[WalkScoreTable.walkId],
         score = row[WalkScoreTable.score],
