@@ -11,6 +11,7 @@ import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.update
 import org.sqlite.SQLiteErrorCode
 
 class QuestionDaoImpl : IQuestionDao {
@@ -39,6 +40,30 @@ class QuestionDaoImpl : IQuestionDao {
                     ErrorCode.DATABASE_ERROR
                 }
             }
+            else -> ErrorCode.DATABASE_ERROR
+        }
+        ServiceResult.Error(error = ResponseError(errorCode = errorCode))
+    }
+
+    override suspend fun updateQuestion(question: Question): ServiceResult<Boolean> = try {
+        val dbUpdateResult = DatabaseFactory.dbQuery {
+            QuestionTable.update(
+                where = { QuestionTable.id eq question.id },
+                body = {
+                    it[questionText] = question.questionText
+                    it[answer0] = question.answers[0]
+                    it[answer1] = question.answers[1]
+                    it[answer2] = question.answers.getOrNull(2)
+                    it[answer3] = question.answers.getOrNull(3)
+                    it[answer4] = question.answers.getOrNull(4)
+                    it[correctAnswer] = question.correctAnswer
+                }
+            )
+        }
+        ServiceResult.Success(data = dbUpdateResult == 1)
+    } catch (e: Exception) {
+        val errorCode = when (e) {
+            is NoSuchElementException -> ErrorCode.UNKNOWN_LOCATION
             else -> ErrorCode.DATABASE_ERROR
         }
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
