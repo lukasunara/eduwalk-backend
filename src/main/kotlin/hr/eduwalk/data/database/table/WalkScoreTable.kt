@@ -3,7 +3,7 @@ package hr.eduwalk.data.database.table
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
-object ScoreTable : Table() {
+object WalkScoreTable : Table() {
 
     val userId = varchar(name = "user_id", length = 50)
         .index(isUnique = false)
@@ -12,14 +12,14 @@ object ScoreTable : Table() {
             onDelete = ReferenceOption.CASCADE,
             onUpdate = ReferenceOption.CASCADE,
         )
-    val questionId = integer(name = "question_id")
+    val walkId = varchar(name = "walk_id", length = 8)
         .index(isUnique = false)
         .references(
-            ref = QuestionTable.id,
+            ref = WalkTable.id,
             onDelete = ReferenceOption.CASCADE,
             onUpdate = ReferenceOption.CASCADE,
         )
-    val isCorrect = bool(name = "is_correct")
+    val score = float(name = "score").nullable().default(defaultValue = null)
 
-    override val primaryKey = PrimaryKey(userId, questionId)
+    override val primaryKey = PrimaryKey(userId, walkId)
 }

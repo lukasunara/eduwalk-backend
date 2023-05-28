@@ -2,7 +2,7 @@ package hr.eduwalk.data.database
 
 import hr.eduwalk.data.database.table.LocationTable
 import hr.eduwalk.data.database.table.QuestionTable
-import hr.eduwalk.data.database.table.ScoreTable
+import hr.eduwalk.data.database.table.WalkScoreTable
 import hr.eduwalk.data.database.table.UsersTable
 import hr.eduwalk.data.database.table.WalkTable
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ object DatabaseFactory {
                 WalkTable,
                 LocationTable,
                 QuestionTable,
-                ScoreTable,
+                WalkScoreTable,
             )
         }
     }
