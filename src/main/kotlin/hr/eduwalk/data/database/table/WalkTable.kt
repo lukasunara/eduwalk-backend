@@ -16,6 +16,7 @@ object WalkTable : Table() {
             onUpdate = ReferenceOption.CASCADE,
         )
         .nullable()
+        .default(defaultValue = null)
 
     override val primaryKey = PrimaryKey(firstColumn = id)
 }

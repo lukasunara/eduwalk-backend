@@ -16,12 +16,14 @@ enum class ErrorCode(val message: String) {
     UNKNOWN_LOCATION_SCORE("This location has no score for given user."),
     UNKNOWN_QUESTION("This question doesn't exist."),
     UNKNOWN_USER("This user doesn't exist."),
+    UNKNOWN_WALK("This walk doesn't exist."),
     UNKNOWN_WALK_SCORE("This walk has no score for given user."),
 
     LOCATION_EXISTS("This location already exists."),
     LOCATION_SCORE_EXISTS("This location score already exists."),
     QUESTION_EXISTS("This question already exists."),
     USER_EXISTS("This user already exists."),
+    WALK_EXISTS("This walk already exists."),
     WALK_SCORE_EXISTS("This walk score already exists."),
 
     DATABASE_ERROR("Unknown database error. Try again, and check your parameters."),

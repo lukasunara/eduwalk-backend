@@ -4,6 +4,7 @@ import hr.eduwalk.data.model.Location
 import hr.eduwalk.data.model.LocationScore
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
+import hr.eduwalk.data.model.Walk
 import hr.eduwalk.data.model.WalkScore
 
 sealed class ServiceResult<out T> {
@@ -39,4 +40,14 @@ fun ServiceResult<List<WalkScore>>.toWalkScoreTop5Response() = when (this) {
 fun ServiceResult<List<Location>>.toWalkLocationsResponse() = when (this) {
     is ServiceResult.Success -> WalkLocationsResponse(locations = data)
     is ServiceResult.Error -> WalkLocationsResponse(error = error)
+}
+
+fun ServiceResult<Walk>.toWalkResponse() = when (this) {
+    is ServiceResult.Success -> WalkResponse(walk = data)
+    is ServiceResult.Error -> WalkResponse(error = error)
+}
+
+fun ServiceResult<List<Walk>>.toWalksResponse() = when (this) {
+    is ServiceResult.Success -> WalksResponse(walks = data)
+    is ServiceResult.Error -> WalksResponse(error = error)
 }
