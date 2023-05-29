@@ -51,3 +51,8 @@ fun ServiceResult<List<Walk>>.toWalksResponse() = when (this) {
     is ServiceResult.Success -> WalksResponse(walks = data)
     is ServiceResult.Error -> WalksResponse(error = error)
 }
+
+fun ServiceResult<List<String>>.toWalkIdsResponse() = when (this) {
+    is ServiceResult.Success -> WalkIdsResponse(walkIds = data)
+    is ServiceResult.Error -> WalkIdsResponse(error = error)
+}

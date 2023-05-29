@@ -10,7 +10,6 @@ import hr.eduwalk.domain.model.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SortOrder
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.isNotNull
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
@@ -83,8 +82,11 @@ class WalkScoreDaoImpl : IWalkScoreDao {
 
     override suspend fun getWalkScoreTop5(walkId: String): ServiceResult<List<WalkScore>> = try {
         val dbWalkScores = DatabaseFactory.dbQuery {
-            WalkScoreTable.select { WalkScoreTable.walkId eq walkId }
-                .adjustWhere { WalkScoreTable.score.isNotNull() }
+            WalkScoreTable
+                .select {
+                    WalkScoreTable.walkId eq walkId
+                    WalkScoreTable.score.isNotNull()
+                }
                 .orderBy(column = WalkScoreTable.score, order = SortOrder.DESC)
                 .limit(n = 5)
                 .map(::resultRowToWalkScore)
@@ -92,9 +94,30 @@ class WalkScoreDaoImpl : IWalkScoreDao {
         ServiceResult.Success(data = dbWalkScores)
     } catch (e: Exception) {
         val errorCode = when (e) {
-            is NoSuchElementException -> ErrorCode.UNKNOWN_WALK_SCORE
             is ExposedSQLException -> {
                 println("Exception from getWalkScoreTop5(): ${e.errorCode}")
+                ErrorCode.DATABASE_ERROR
+            }
+            else -> ErrorCode.DATABASE_ERROR
+        }
+        ServiceResult.Error(error = ResponseError(errorCode = errorCode))
+    }
+
+    override suspend fun getUserParticipatedWalkIds(userId: String): ServiceResult<List<String>> = try {
+        val dbWalkIds = DatabaseFactory.dbQuery {
+            WalkScoreTable
+                .select {
+                    WalkScoreTable.userId eq userId
+                    WalkScoreTable.score.isNotNull()
+                }
+                .orderBy(column = WalkScoreTable.score, order = SortOrder.DESC)
+                .map { it[WalkScoreTable.walkId] }
+        }
+        ServiceResult.Success(data = dbWalkIds)
+    } catch (e: Exception) {
+        val errorCode = when (e) {
+            is ExposedSQLException -> {
+                println("Exception from getUserParticipatedWalkIds(): ${e.errorCode}")
                 ErrorCode.DATABASE_ERROR
             }
             else -> ErrorCode.DATABASE_ERROR

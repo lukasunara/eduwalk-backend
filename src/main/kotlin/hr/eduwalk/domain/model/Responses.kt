@@ -55,3 +55,9 @@ data class WalksResponse(
     val walks: List<Walk>? = null,
     val error: ResponseError? = null,
 )
+
+@Serializable
+data class WalkIdsResponse(
+    val walkIds: List<String>? = null,
+    val error: ResponseError? = null,
+)

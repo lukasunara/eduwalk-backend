@@ -14,7 +14,6 @@ enum class ErrorCode(val message: String) {
 
     UNKNOWN_LOCATION("This location doesn't exist."),
     UNKNOWN_LOCATION_SCORE("This location has no score for given user."),
-    UNKNOWN_QUESTION("This question doesn't exist."),
     UNKNOWN_USER("This user doesn't exist."),
     UNKNOWN_WALK("This walk doesn't exist."),
     UNKNOWN_WALK_SCORE("This walk has no score for given user."),

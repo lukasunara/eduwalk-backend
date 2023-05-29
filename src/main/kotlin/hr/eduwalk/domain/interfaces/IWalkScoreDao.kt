@@ -8,4 +8,5 @@ interface IWalkScoreDao {
     suspend fun updateWalkScore(walkScore: WalkScore): ServiceResult<Boolean>
     suspend fun getWalkScoreForUser(walkId: String, userId: String): ServiceResult<WalkScore>
     suspend fun getWalkScoreTop5(walkId: String): ServiceResult<List<WalkScore>>
+    suspend fun getUserParticipatedWalkIds(userId: String): ServiceResult<List<String>>
 }
