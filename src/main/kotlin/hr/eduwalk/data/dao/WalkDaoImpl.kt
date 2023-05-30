@@ -42,20 +42,26 @@ class WalkDaoImpl : IWalkDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun updateWalk(walk: Walk): ServiceResult<Boolean> = try {
+    override suspend fun updateWalk(
+        walkId: String,
+        title: String,
+        description: String?,
+    ): ServiceResult<Unit> = try {
         val dbUpdateResult = DatabaseFactory.dbQuery {
             WalkTable.update(
-                where = { WalkTable.id eq walk.id },
+                where = { WalkTable.id eq walkId },
                 body = {
-                    it[title] = walk.title
-                    it[description] = walk.description
+                    it[WalkTable.title] = title
+                    it[WalkTable.description] = description
                 }
             )
         }
-        ServiceResult.Success(data = dbUpdateResult == 1)
+        if (dbUpdateResult == 0) throw RuntimeException()
+        ServiceResult.Success(data = Unit)
     } catch (e: Exception) {
         val errorCode = when (e) {
             is NoSuchElementException -> ErrorCode.UNKNOWN_WALK
+            is RuntimeException -> ErrorCode.UNKNOWN_WALK
             else -> ErrorCode.DATABASE_ERROR
         }
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))

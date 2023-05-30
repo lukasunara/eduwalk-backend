@@ -25,6 +25,8 @@ enum class ErrorCode(val message: String) {
     WALK_EXISTS("This walk already exists."),
     WALK_SCORE_EXISTS("This walk score already exists."),
 
+    UPDATE_WALK_FAILED("Update walk failed."),
+
     DATABASE_ERROR("Unknown database error. Try again, and check your parameters."),
     INVALID_JSON("Your JSON must match the format in this sample response."),
 }
