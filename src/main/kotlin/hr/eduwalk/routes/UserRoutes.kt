@@ -18,7 +18,7 @@ fun Route.userRoutes(
     getOrInsertUser: GetOrInsertUser,
 ) {
     route(path = "users") {
-        post {
+        post(path = "create") {
             val user = call.receive<User>()
 
             val userResponse = getOrInsertUser(user = user)

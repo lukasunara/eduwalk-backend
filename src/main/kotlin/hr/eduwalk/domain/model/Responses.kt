@@ -61,3 +61,9 @@ data class WalkIdsResponse(
     val walkIds: List<String>? = null,
     val error: ResponseError? = null,
 )
+
+@Serializable
+data class EmptyResponse(
+    val data: Unit? = null,
+    val error: ResponseError? = null,
+)

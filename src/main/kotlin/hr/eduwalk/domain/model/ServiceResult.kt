@@ -56,3 +56,8 @@ fun ServiceResult<List<String>>.toWalkIdsResponse() = when (this) {
     is ServiceResult.Success -> WalkIdsResponse(walkIds = data)
     is ServiceResult.Error -> WalkIdsResponse(error = error)
 }
+
+fun ServiceResult<Unit>.toEmptyResponse() = when (this) {
+    is ServiceResult.Success -> EmptyResponse(data = data)
+    is ServiceResult.Error -> EmptyResponse(error = error)
+}
