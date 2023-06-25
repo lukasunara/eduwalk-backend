@@ -1,4 +1,4 @@
-package hr.eduwalk.domain.usecase
+package hr.eduwalk.domain.usecase.locationscore
 
 import hr.eduwalk.data.model.LocationScore
 import hr.eduwalk.domain.interfaces.ILocationScoreDao

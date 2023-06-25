@@ -1,4 +1,4 @@
-package hr.eduwalk.domain.usecase
+package hr.eduwalk.domain.usecase.question
 
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.domain.interfaces.IQuestionDao

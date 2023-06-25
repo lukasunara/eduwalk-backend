@@ -2,10 +2,10 @@ package hr.eduwalk.routes
 
 import hr.eduwalk.data.model.Walk
 import hr.eduwalk.domain.model.UpdateWalkRequestBody
-import hr.eduwalk.domain.usecase.DeleteWalk
-import hr.eduwalk.domain.usecase.GetWalkById
-import hr.eduwalk.domain.usecase.InsertWalk
-import hr.eduwalk.domain.usecase.UpdateWalk
+import hr.eduwalk.domain.usecase.walk.DeleteWalk
+import hr.eduwalk.domain.usecase.walk.GetWalkById
+import hr.eduwalk.domain.usecase.walk.InsertWalk
+import hr.eduwalk.domain.usecase.walk.UpdateWalk
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.request.receive

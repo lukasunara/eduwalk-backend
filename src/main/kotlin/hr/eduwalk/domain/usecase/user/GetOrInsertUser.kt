@@ -1,4 +1,4 @@
-package hr.eduwalk.domain.usecase
+package hr.eduwalk.domain.usecase.user
 
 import hr.eduwalk.data.model.User
 import hr.eduwalk.domain.interfaces.IUserDao

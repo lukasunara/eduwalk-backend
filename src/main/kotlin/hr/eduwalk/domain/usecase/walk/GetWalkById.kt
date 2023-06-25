@@ -1,4 +1,4 @@
-package hr.eduwalk.domain.usecase
+package hr.eduwalk.domain.usecase.walk
 
 import hr.eduwalk.domain.interfaces.IWalkDao
 import hr.eduwalk.domain.model.WalkResponse

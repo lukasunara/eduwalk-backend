@@ -1,9 +1,9 @@
 package hr.eduwalk.routes
 
 import hr.eduwalk.data.model.User
-import hr.eduwalk.domain.usecase.DeleteUser
-import hr.eduwalk.domain.usecase.GetOrInsertUser
-import hr.eduwalk.domain.usecase.GetUser
+import hr.eduwalk.domain.usecase.user.DeleteUser
+import hr.eduwalk.domain.usecase.user.GetOrInsertUser
+import hr.eduwalk.domain.usecase.user.GetUser
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.request.receive

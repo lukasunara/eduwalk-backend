@@ -1,12 +1,12 @@
 package hr.eduwalk.plugins
 
-import hr.eduwalk.domain.usecase.DeleteUser
-import hr.eduwalk.domain.usecase.DeleteWalk
-import hr.eduwalk.domain.usecase.GetOrInsertUser
-import hr.eduwalk.domain.usecase.GetUser
-import hr.eduwalk.domain.usecase.GetWalkById
-import hr.eduwalk.domain.usecase.InsertWalk
-import hr.eduwalk.domain.usecase.UpdateWalk
+import hr.eduwalk.domain.usecase.user.DeleteUser
+import hr.eduwalk.domain.usecase.walk.DeleteWalk
+import hr.eduwalk.domain.usecase.user.GetOrInsertUser
+import hr.eduwalk.domain.usecase.user.GetUser
+import hr.eduwalk.domain.usecase.walk.GetWalkById
+import hr.eduwalk.domain.usecase.walk.InsertWalk
+import hr.eduwalk.domain.usecase.walk.UpdateWalk
 import hr.eduwalk.routes.userRoutes
 import hr.eduwalk.routes.walkRoutes
 import io.ktor.server.application.Application

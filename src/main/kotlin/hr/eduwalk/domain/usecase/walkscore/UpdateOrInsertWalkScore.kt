@@ -1,4 +1,4 @@
-package hr.eduwalk.domain.usecase
+package hr.eduwalk.domain.usecase.walkscore
 
 import hr.eduwalk.data.model.WalkScore
 import hr.eduwalk.domain.interfaces.IWalkScoreDao
