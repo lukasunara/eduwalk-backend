@@ -1,12 +1,16 @@
 package hr.eduwalk.plugins
 
+import hr.eduwalk.domain.usecase.location.DeleteLocation
+import hr.eduwalk.domain.usecase.location.GetWalkLocations
+import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
 import hr.eduwalk.domain.usecase.user.DeleteUser
-import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.user.GetOrInsertUser
 import hr.eduwalk.domain.usecase.user.GetUser
+import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
+import hr.eduwalk.routes.locationRoutes
 import hr.eduwalk.routes.userRoutes
 import hr.eduwalk.routes.walkRoutes
 import io.ktor.server.application.Application
@@ -31,6 +35,20 @@ fun Application.configureRouting() {
         val updateWalk by inject<UpdateWalk>()
         val deleteWalk by inject<DeleteWalk>()
         val getWalkById by inject<GetWalkById>()
-        walkRoutes(insertWalk = insertWalk, updateWalk = updateWalk, deleteWalk = deleteWalk, getWalkById = getWalkById)
+        walkRoutes(
+            insertWalk = insertWalk,
+            updateWalk = updateWalk,
+            deleteWalk = deleteWalk,
+            getWalkById = getWalkById,
+        )
+
+        val deleteLocation by inject<DeleteLocation>()
+        val getWalkLocations by inject<GetWalkLocations>()
+        val updateOrInsertLocation by inject<UpdateOrInsertLocation>()
+        locationRoutes(
+            updateOrInsertLocation = updateOrInsertLocation,
+            deleteLocation = deleteLocation,
+            getWalkLocations = getWalkLocations,
+        )
     }
 }

@@ -1,13 +1,18 @@
 package hr.eduwalk.plugins
 
+import hr.eduwalk.data.dao.LocationDaoImpl
 import hr.eduwalk.data.dao.UserDaoImpl
 import hr.eduwalk.data.dao.WalkDaoImpl
+import hr.eduwalk.domain.interfaces.ILocationDao
 import hr.eduwalk.domain.interfaces.IUserDao
 import hr.eduwalk.domain.interfaces.IWalkDao
+import hr.eduwalk.domain.usecase.location.DeleteLocation
+import hr.eduwalk.domain.usecase.location.GetWalkLocations
+import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
 import hr.eduwalk.domain.usecase.user.DeleteUser
-import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.user.GetOrInsertUser
 import hr.eduwalk.domain.usecase.user.GetUser
+import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
@@ -20,7 +25,7 @@ import org.koin.logger.slf4jLogger
 fun Application.configureKoin() {
     install(Koin) {
         slf4jLogger()
-        modules(userModule, walkModule)
+        modules(userModule, walkModule, locationModule)
     }
 }
 
@@ -39,4 +44,12 @@ val walkModule = module {
     single { UpdateWalk(get()) }
     single { DeleteWalk(get()) }
     single { GetWalkById(get()) }
+}
+
+val locationModule = module {
+    single<ILocationDao> { LocationDaoImpl() }
+
+    single { DeleteLocation(get()) }
+    single { GetWalkLocations(get()) }
+    single { UpdateOrInsertLocation(get()) }
 }
