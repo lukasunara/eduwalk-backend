@@ -13,10 +13,15 @@ import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
+import hr.eduwalk.domain.usecase.walkscore.GetUserParticipatedWalkIds
+import hr.eduwalk.domain.usecase.walkscore.GetWalkScoreForUser
+import hr.eduwalk.domain.usecase.walkscore.GetWalkScoreTop5
+import hr.eduwalk.domain.usecase.walkscore.UpdateOrInsertWalkScore
 import hr.eduwalk.routes.locationRoutes
 import hr.eduwalk.routes.questionRoutes
 import hr.eduwalk.routes.userRoutes
 import hr.eduwalk.routes.walkRoutes
+import hr.eduwalk.routes.walkScoreRoutes
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.response.respondText
@@ -62,6 +67,17 @@ fun Application.configureRouting() {
             deleteQuestion = deleteQuestion,
             getLocationQuestions = getLocationQuestions,
             updateOrInsertQuestion = updateOrInsertQuestion,
+        )
+
+        val getWalkScoreTop5 by inject<GetWalkScoreTop5>()
+        val getWalkScoreForUser by inject<GetWalkScoreForUser>()
+        val updateOrInsertWalkScore by inject<UpdateOrInsertWalkScore>()
+        val getUserParticipatedWalkIds by inject<GetUserParticipatedWalkIds>()
+        walkScoreRoutes(
+            getWalkScoreTop5 = getWalkScoreTop5,
+            getWalkScoreForUser = getWalkScoreForUser,
+            updateOrInsertWalkScore = updateOrInsertWalkScore,
+            getUserParticipatedWalkIds = getUserParticipatedWalkIds,
         )
     }
 }
