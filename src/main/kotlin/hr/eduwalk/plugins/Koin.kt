@@ -1,11 +1,13 @@
 package hr.eduwalk.plugins
 
 import hr.eduwalk.data.dao.LocationDaoImpl
+import hr.eduwalk.data.dao.LocationScoreDaoImpl
 import hr.eduwalk.data.dao.QuestionDaoImpl
 import hr.eduwalk.data.dao.UserDaoImpl
 import hr.eduwalk.data.dao.WalkDaoImpl
 import hr.eduwalk.data.dao.WalkScoreDaoImpl
 import hr.eduwalk.domain.interfaces.ILocationDao
+import hr.eduwalk.domain.interfaces.ILocationScoreDao
 import hr.eduwalk.domain.interfaces.IQuestionDao
 import hr.eduwalk.domain.interfaces.IUserDao
 import hr.eduwalk.domain.interfaces.IWalkDao
@@ -13,6 +15,8 @@ import hr.eduwalk.domain.interfaces.IWalkScoreDao
 import hr.eduwalk.domain.usecase.location.DeleteLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
 import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
+import hr.eduwalk.domain.usecase.locationscore.GetLocationScoreForUser
+import hr.eduwalk.domain.usecase.locationscore.UpdateOrInsertLocationScore
 import hr.eduwalk.domain.usecase.question.DeleteQuestion
 import hr.eduwalk.domain.usecase.question.GetLocationQuestions
 import hr.eduwalk.domain.usecase.question.UpdateOrInsertQuestion
@@ -36,7 +40,14 @@ import org.koin.logger.slf4jLogger
 fun Application.configureKoin() {
     install(Koin) {
         slf4jLogger()
-        modules(userModule, walkModule, locationModule, questionModule, walkScoreModule)
+        modules(
+            userModule,
+            walkModule,
+            locationModule,
+            questionModule,
+            walkScoreModule,
+            locationScoreModule,
+        )
     }
 }
 
@@ -80,4 +91,11 @@ val walkScoreModule = module {
     single { GetWalkScoreForUser(get()) }
     single { UpdateOrInsertWalkScore(get()) }
     single { GetUserParticipatedWalkIds(get()) }
+}
+
+val locationScoreModule = module {
+    single<ILocationScoreDao> { LocationScoreDaoImpl() }
+
+    single { GetLocationScoreForUser(get()) }
+    single { UpdateOrInsertLocationScore(get()) }
 }
