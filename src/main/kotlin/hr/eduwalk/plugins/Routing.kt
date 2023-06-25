@@ -3,6 +3,9 @@ package hr.eduwalk.plugins
 import hr.eduwalk.domain.usecase.location.DeleteLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
 import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
+import hr.eduwalk.domain.usecase.question.DeleteQuestion
+import hr.eduwalk.domain.usecase.question.GetLocationQuestions
+import hr.eduwalk.domain.usecase.question.UpdateOrInsertQuestion
 import hr.eduwalk.domain.usecase.user.DeleteUser
 import hr.eduwalk.domain.usecase.user.GetOrInsertUser
 import hr.eduwalk.domain.usecase.user.GetUser
@@ -11,6 +14,7 @@ import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
 import hr.eduwalk.routes.locationRoutes
+import hr.eduwalk.routes.questionRoutes
 import hr.eduwalk.routes.userRoutes
 import hr.eduwalk.routes.walkRoutes
 import io.ktor.server.application.Application
@@ -49,6 +53,15 @@ fun Application.configureRouting() {
             updateOrInsertLocation = updateOrInsertLocation,
             deleteLocation = deleteLocation,
             getWalkLocations = getWalkLocations,
+        )
+
+        val deleteQuestion by inject<DeleteQuestion>()
+        val getLocationQuestions by inject<GetLocationQuestions>()
+        val updateOrInsertQuestion by inject<UpdateOrInsertQuestion>()
+        questionRoutes(
+            deleteQuestion = deleteQuestion,
+            getLocationQuestions = getLocationQuestions,
+            updateOrInsertQuestion = updateOrInsertQuestion,
         )
     }
 }
