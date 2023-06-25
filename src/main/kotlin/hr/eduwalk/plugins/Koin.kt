@@ -4,6 +4,8 @@ import hr.eduwalk.data.dao.UserDaoImpl
 import hr.eduwalk.data.dao.WalkDaoImpl
 import hr.eduwalk.domain.interfaces.IUserDao
 import hr.eduwalk.domain.interfaces.IWalkDao
+import hr.eduwalk.domain.usecase.DeleteUser
+import hr.eduwalk.domain.usecase.DeleteWalk
 import hr.eduwalk.domain.usecase.GetOrInsertUser
 import hr.eduwalk.domain.usecase.GetUser
 import hr.eduwalk.domain.usecase.GetWalkById
@@ -26,6 +28,7 @@ val userModule = module {
     single<IUserDao> { UserDaoImpl() }
 
     single { GetUser(get()) }
+    single { DeleteUser(get()) }
     single { GetOrInsertUser(get()) }
 }
 
@@ -34,5 +37,6 @@ val walkModule = module {
 
     single { InsertWalk(get()) }
     single { UpdateWalk(get()) }
+    single { DeleteWalk(get()) }
     single { GetWalkById(get()) }
 }

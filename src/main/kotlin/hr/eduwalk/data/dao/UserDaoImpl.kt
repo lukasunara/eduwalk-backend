@@ -9,6 +9,8 @@ import hr.eduwalk.domain.model.ResponseError
 import hr.eduwalk.domain.model.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.sqlite.SQLiteErrorCode
@@ -48,6 +50,24 @@ class UserDaoImpl : IUserDao {
             is NoSuchElementException -> ErrorCode.UNKNOWN_USER
             is ExposedSQLException -> {
                 println("Exception from getUserByUsername(): ${e.errorCode}")
+                ErrorCode.DATABASE_ERROR
+            }
+            else -> ErrorCode.DATABASE_ERROR
+        }
+        ServiceResult.Error(error = ResponseError(errorCode = errorCode))
+    }
+
+    override suspend fun deleteUser(username: String): ServiceResult<Unit> = try {
+        val dbDeleteResult = dbQuery {
+            UsersTable.deleteWhere { UsersTable.username eq username }
+        }
+        if (dbDeleteResult == 0) throw RuntimeException()
+        ServiceResult.Success(data = Unit)
+    } catch (e: Exception) {
+        val errorCode = when (e) {
+            is RuntimeException -> ErrorCode.UNKNOWN_USER
+            is ExposedSQLException -> {
+                println("Exception from deleteUser(): ${e.errorCode}")
                 ErrorCode.DATABASE_ERROR
             }
             else -> ErrorCode.DATABASE_ERROR

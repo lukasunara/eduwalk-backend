@@ -1,5 +1,7 @@
 package hr.eduwalk.plugins
 
+import hr.eduwalk.domain.usecase.DeleteUser
+import hr.eduwalk.domain.usecase.DeleteWalk
 import hr.eduwalk.domain.usecase.GetOrInsertUser
 import hr.eduwalk.domain.usecase.GetUser
 import hr.eduwalk.domain.usecase.GetWalkById
@@ -21,12 +23,14 @@ fun Application.configureRouting() {
         }
 
         val getUser by inject<GetUser>()
+        val deleteUser by inject<DeleteUser>()
         val getOrInsertUser by inject<GetOrInsertUser>()
-        userRoutes(getUser = getUser, getOrInsertUser = getOrInsertUser)
+        userRoutes(getUser = getUser, deleteUser = deleteUser, getOrInsertUser = getOrInsertUser)
 
         val insertWalk by inject<InsertWalk>()
         val updateWalk by inject<UpdateWalk>()
+        val deleteWalk by inject<DeleteWalk>()
         val getWalkById by inject<GetWalkById>()
-        walkRoutes(insertWalk = insertWalk, updateWalk = updateWalk, getWalkById = getWalkById)
+        walkRoutes(insertWalk = insertWalk, updateWalk = updateWalk, deleteWalk = deleteWalk, getWalkById = getWalkById)
     }
 }

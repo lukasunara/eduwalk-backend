@@ -9,6 +9,8 @@ import hr.eduwalk.domain.model.ResponseError
 import hr.eduwalk.domain.model.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
@@ -64,6 +66,24 @@ class QuestionDaoImpl : IQuestionDao {
     } catch (e: Exception) {
         val errorCode = when (e) {
             is NoSuchElementException -> ErrorCode.UNKNOWN_LOCATION
+            else -> ErrorCode.DATABASE_ERROR
+        }
+        ServiceResult.Error(error = ResponseError(errorCode = errorCode))
+    }
+
+    override suspend fun deleteQuestion(questionId: Int): ServiceResult<Unit>  = try {
+        val dbDeleteResult = DatabaseFactory.dbQuery {
+            QuestionTable.deleteWhere { QuestionTable.id eq questionId }
+        }
+        if (dbDeleteResult == 0) throw RuntimeException()
+        ServiceResult.Success(data = Unit)
+    } catch (e: Exception) {
+        val errorCode = when (e) {
+            is RuntimeException -> ErrorCode.UNKNOWN_QUESTION
+            is ExposedSQLException -> {
+                println("Exception from deleteQuestion(): ${e.errorCode}")
+                ErrorCode.DATABASE_ERROR
+            }
             else -> ErrorCode.DATABASE_ERROR
         }
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
