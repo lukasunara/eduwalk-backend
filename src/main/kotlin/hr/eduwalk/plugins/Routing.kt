@@ -12,6 +12,7 @@ import hr.eduwalk.domain.usecase.user.DeleteUser
 import hr.eduwalk.domain.usecase.user.GetOrInsertUser
 import hr.eduwalk.domain.usecase.user.GetUser
 import hr.eduwalk.domain.usecase.walk.DeleteWalk
+import hr.eduwalk.domain.usecase.walk.GetDefaultWalks
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
@@ -47,11 +48,13 @@ fun Application.configureRouting() {
         val updateWalk by inject<UpdateWalk>()
         val deleteWalk by inject<DeleteWalk>()
         val getWalkById by inject<GetWalkById>()
+        val getDefaultWalks by inject<GetDefaultWalks>()
         walkRoutes(
             insertWalk = insertWalk,
             updateWalk = updateWalk,
             deleteWalk = deleteWalk,
             getWalkById = getWalkById,
+            getDefaultWalks = getDefaultWalks,
         )
 
         val deleteLocation by inject<DeleteLocation>()

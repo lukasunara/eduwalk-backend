@@ -24,6 +24,7 @@ import hr.eduwalk.domain.usecase.user.DeleteUser
 import hr.eduwalk.domain.usecase.user.GetOrInsertUser
 import hr.eduwalk.domain.usecase.user.GetUser
 import hr.eduwalk.domain.usecase.walk.DeleteWalk
+import hr.eduwalk.domain.usecase.walk.GetDefaultWalks
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
@@ -87,6 +88,7 @@ val questionModule = module {
 val walkScoreModule = module {
     single<IWalkScoreDao> { WalkScoreDaoImpl() }
 
+    single { GetDefaultWalks(get()) }
     single { GetWalkScoreTop5(get()) }
     single { GetWalkScoreForUser(get()) }
     single { UpdateOrInsertWalkScore(get()) }
