@@ -1,5 +1,6 @@
 package hr.eduwalk.data.database
 
+import hr.eduwalk.data.database.table.LocationScoreTable
 import hr.eduwalk.data.database.table.LocationTable
 import hr.eduwalk.data.database.table.QuestionTable
 import hr.eduwalk.data.database.table.UsersTable
@@ -44,6 +45,7 @@ object DatabaseFactory {
                 LocationTable,
                 QuestionTable,
                 WalkScoreTable,
+                LocationScoreTable,
             )
             createDefaultWalks()
         }

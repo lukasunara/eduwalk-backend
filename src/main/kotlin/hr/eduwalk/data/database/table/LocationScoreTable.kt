@@ -19,7 +19,7 @@ object LocationScoreTable : Table() {
             onDelete = ReferenceOption.CASCADE,
             onUpdate = ReferenceOption.CASCADE,
         )
-    val score = float(name = "score").nullable().default(defaultValue = null)
+    val score = integer(name = "score").nullable().default(defaultValue = null)
 
     override val primaryKey = PrimaryKey(userId, locationId)
 }

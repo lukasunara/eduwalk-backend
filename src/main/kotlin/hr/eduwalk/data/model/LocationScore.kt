@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class LocationScore(
     val userId: String,
     val locationId: Int,
-    val score: Float? = null,
+    val score: Int? = null,
 )

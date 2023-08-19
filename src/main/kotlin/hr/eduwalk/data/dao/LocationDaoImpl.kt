@@ -1,7 +1,6 @@
 package hr.eduwalk.data.dao
 
 import hr.eduwalk.data.database.DatabaseFactory
-import hr.eduwalk.data.database.DatabaseFactory.dbQuery
 import hr.eduwalk.data.database.table.LocationTable
 import hr.eduwalk.data.database.table.UsersTable
 import hr.eduwalk.data.model.Location
@@ -49,6 +48,8 @@ class LocationDaoImpl : ILocationDao {
     }
 
     override suspend fun updateLocation(location: Location): ServiceResult<Boolean> = try {
+        location.id ?: throw IllegalArgumentException()
+
         val dbUpdateResult = DatabaseFactory.dbQuery {
             LocationTable.update(
                 where = { LocationTable.id eq location.id },
@@ -72,7 +73,7 @@ class LocationDaoImpl : ILocationDao {
     }
 
     override suspend fun deleteLocation(locationId: Int): ServiceResult<Unit> = try {
-        val dbDeleteResult = dbQuery {
+        val dbDeleteResult = DatabaseFactory.dbQuery {
             UsersTable.deleteWhere { LocationTable.id eq locationId }
         }
         if (dbDeleteResult == 0) throw RuntimeException()

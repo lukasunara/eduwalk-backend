@@ -1,17 +1,20 @@
 package hr.eduwalk.plugins
 
+import hr.eduwalk.data.dao.JoinDaoImpl
 import hr.eduwalk.data.dao.LocationDaoImpl
 import hr.eduwalk.data.dao.LocationScoreDaoImpl
 import hr.eduwalk.data.dao.QuestionDaoImpl
 import hr.eduwalk.data.dao.UserDaoImpl
 import hr.eduwalk.data.dao.WalkDaoImpl
 import hr.eduwalk.data.dao.WalkScoreDaoImpl
+import hr.eduwalk.domain.interfaces.IJoinDao
 import hr.eduwalk.domain.interfaces.ILocationDao
 import hr.eduwalk.domain.interfaces.ILocationScoreDao
 import hr.eduwalk.domain.interfaces.IQuestionDao
 import hr.eduwalk.domain.interfaces.IUserDao
 import hr.eduwalk.domain.interfaces.IWalkDao
 import hr.eduwalk.domain.interfaces.IWalkScoreDao
+import hr.eduwalk.domain.usecase.join.GetLocationsWithScores
 import hr.eduwalk.domain.usecase.location.DeleteLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
 import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
@@ -48,6 +51,7 @@ fun Application.configureKoin() {
             questionModule,
             walkScoreModule,
             locationScoreModule,
+            joinModule,
         )
     }
 }
@@ -100,4 +104,10 @@ val locationScoreModule = module {
 
     single { GetLocationScoreForUser(get()) }
     single { UpdateOrInsertLocationScore(get()) }
+}
+
+val joinModule = module {
+    single<IJoinDao> { JoinDaoImpl() }
+
+    single { GetLocationsWithScores(get()) }
 }

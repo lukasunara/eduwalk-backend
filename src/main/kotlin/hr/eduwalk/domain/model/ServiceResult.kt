@@ -2,6 +2,7 @@ package hr.eduwalk.domain.model
 
 import hr.eduwalk.data.model.Location
 import hr.eduwalk.data.model.LocationScore
+import hr.eduwalk.data.model.LocationWithScore
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.Walk
@@ -25,6 +26,11 @@ fun ServiceResult<List<Question>>.toLocationQuestionsResponse() = when (this) {
 fun ServiceResult<LocationScore>.toLocationScoreResponse() = when (this) {
     is ServiceResult.Success -> LocationScoreResponse(locationScore = data)
     is ServiceResult.Error -> LocationScoreResponse(error = error)
+}
+
+fun ServiceResult<List<LocationWithScore>>.toLocationsWithScoresResponse() = when (this) {
+    is ServiceResult.Success -> LocationsWithScoresResponse(locationsWithScores = data)
+    is ServiceResult.Error -> LocationsWithScoresResponse(error = error)
 }
 
 fun ServiceResult<WalkScore>.toWalkScoreResponse() = when (this) {

@@ -3,8 +3,7 @@ package hr.eduwalk.data.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class WalkScore(
-    val userId: String,
-    val walkId: String,
+data class LocationWithScore(
+    val location: Location,
     val score: Int? = null,
 )

@@ -2,6 +2,7 @@ package hr.eduwalk.domain.model
 
 import hr.eduwalk.data.model.Location
 import hr.eduwalk.data.model.LocationScore
+import hr.eduwalk.data.model.LocationWithScore
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.Walk
@@ -23,6 +24,12 @@ data class LocationQuestionsResponse(
 @Serializable
 data class LocationScoreResponse(
     val locationScore: LocationScore? = null,
+    val error: ResponseError? = null,
+)
+
+@Serializable
+data class LocationsWithScoresResponse(
+    val locationsWithScores: List<LocationWithScore>? = null,
     val error: ResponseError? = null,
 )
 
