@@ -10,6 +10,7 @@ import hr.eduwalk.domain.model.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SortOrder
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
@@ -45,8 +46,7 @@ class WalkScoreDaoImpl : IWalkScoreDao {
         val dbUpdateResult = DatabaseFactory.dbQuery {
             WalkScoreTable.update(
                 where = {
-                    WalkScoreTable.userId eq walkScore.userId
-                    WalkScoreTable.walkId eq walkScore.walkId
+                    (WalkScoreTable.userId eq walkScore.userId) and (WalkScoreTable.walkId eq walkScore.walkId)
                 },
                 body = { it[score] = walkScore.score }
             )
@@ -63,8 +63,7 @@ class WalkScoreDaoImpl : IWalkScoreDao {
     override suspend fun getWalkScoreForUser(walkId: String, userId: String): ServiceResult<WalkScore> = try {
         val dbWalkScore = DatabaseFactory.dbQuery {
             WalkScoreTable.select {
-                WalkScoreTable.userId eq userId
-                WalkScoreTable.walkId eq walkId
+                (WalkScoreTable.userId eq userId) and (WalkScoreTable.walkId eq walkId)
             }.map(::resultRowToWalkScore).single()
         }
         ServiceResult.Success(data = dbWalkScore)
@@ -84,8 +83,7 @@ class WalkScoreDaoImpl : IWalkScoreDao {
         val dbWalkScores = DatabaseFactory.dbQuery {
             WalkScoreTable
                 .select {
-                    WalkScoreTable.walkId eq walkId
-                    WalkScoreTable.score.isNotNull()
+                    (WalkScoreTable.walkId eq walkId) and (WalkScoreTable.score.isNotNull())
                 }
                 .orderBy(column = WalkScoreTable.score, order = SortOrder.DESC)
                 .limit(n = 5)
@@ -107,8 +105,7 @@ class WalkScoreDaoImpl : IWalkScoreDao {
         val dbWalkIds = DatabaseFactory.dbQuery {
             WalkScoreTable
                 .select {
-                    WalkScoreTable.userId eq userId
-                    WalkScoreTable.score.isNotNull()
+                    (WalkScoreTable.userId eq userId) and (WalkScoreTable.score.isNotNull())
                 }
                 .orderBy(column = WalkScoreTable.score, order = SortOrder.DESC)
                 .map { it[WalkScoreTable.walkId] }
