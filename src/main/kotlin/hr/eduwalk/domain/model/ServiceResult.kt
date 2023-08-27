@@ -18,8 +18,16 @@ fun ServiceResult<User>.toUserResponse() = when (this) {
     is ServiceResult.Error -> UserResponse(error = error)
 }
 
+fun ServiceResult<Location>.toLocationResponse() = when (this) {
+    is ServiceResult.Success -> LocationResponse(location = data)
+    is ServiceResult.Error -> LocationResponse(error = error)
+}
+
 fun ServiceResult<List<Question>>.toLocationQuestionsResponse() = when (this) {
-    is ServiceResult.Success -> LocationQuestionsResponse(questions = data)
+    is ServiceResult.Success -> {
+        val questions = if (data.size <= 3) data else data.shuffled().subList(0, 3)
+        LocationQuestionsResponse(questions = questions)
+    }
     is ServiceResult.Error -> LocationQuestionsResponse(error = error)
 }
 

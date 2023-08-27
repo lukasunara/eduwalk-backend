@@ -19,6 +19,23 @@ import org.sqlite.SQLiteErrorCode
 
 class LocationDaoImpl : ILocationDao {
 
+    override suspend fun getLocationById(locationId: Int): ServiceResult<Location> = try {
+        val dbLocation = DatabaseFactory.dbQuery {
+            LocationTable.select { LocationTable.id eq locationId }.map(::resultRowToLocation).single()
+        }
+        ServiceResult.Success(data = dbLocation)
+    } catch (e: Exception) {
+        val errorCode = when (e) {
+            is NoSuchElementException -> ErrorCode.UNKNOWN_LOCATION
+            is ExposedSQLException -> {
+                println("Exception from getLocationById(): ${e.errorCode}")
+                ErrorCode.DATABASE_ERROR
+            }
+            else -> ErrorCode.DATABASE_ERROR
+        }
+        ServiceResult.Error(error = ResponseError(errorCode = errorCode))
+    }
+
     override suspend fun insertLocation(location: Location): ServiceResult<Unit> = try {
         DatabaseFactory.dbQuery {
             LocationTable.insert {

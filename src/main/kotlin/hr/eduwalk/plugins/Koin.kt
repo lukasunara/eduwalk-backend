@@ -16,6 +16,7 @@ import hr.eduwalk.domain.interfaces.IWalkDao
 import hr.eduwalk.domain.interfaces.IWalkScoreDao
 import hr.eduwalk.domain.usecase.join.GetLocationsWithScores
 import hr.eduwalk.domain.usecase.location.DeleteLocation
+import hr.eduwalk.domain.usecase.location.GetLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
 import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
 import hr.eduwalk.domain.usecase.locationscore.GetLocationScoreForUser
@@ -76,6 +77,7 @@ val walkModule = module {
 val locationModule = module {
     single<ILocationDao> { LocationDaoImpl() }
 
+    single { GetLocation(get()) }
     single { DeleteLocation(get()) }
     single { GetWalkLocations(get()) }
     single { UpdateOrInsertLocation(get()) }

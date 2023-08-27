@@ -2,6 +2,7 @@ package hr.eduwalk.plugins
 
 import hr.eduwalk.domain.usecase.join.GetLocationsWithScores
 import hr.eduwalk.domain.usecase.location.DeleteLocation
+import hr.eduwalk.domain.usecase.location.GetLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
 import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
 import hr.eduwalk.domain.usecase.locationscore.GetLocationScoreForUser
@@ -88,11 +89,15 @@ fun Application.configureRouting() {
             getUserParticipatedWalkIds = getUserParticipatedWalkIds,
         )
 
+        val getLocation by inject<GetLocation>()
         val getLocationScoreForUser by inject<GetLocationScoreForUser>()
         val updateOrInsertLocationScore by inject<UpdateOrInsertLocationScore>()
         locationScoreRoutes(
             getLocationScoreForUser = getLocationScoreForUser,
             updateOrInsertLocationScore = updateOrInsertLocationScore,
+            updateOrInsertWalkScore = updateOrInsertWalkScore,
+            getLocation = getLocation,
+            getWalkScoreForUser = getWalkScoreForUser,
         )
 
         val getLocationsWithScores by inject<GetLocationsWithScores>()
