@@ -9,6 +9,7 @@ import hr.eduwalk.domain.model.ResponseError
 import hr.eduwalk.domain.model.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
@@ -44,8 +45,8 @@ class LocationScoreDaoImpl : ILocationScoreDao {
         val dbUpdateResult = DatabaseFactory.dbQuery {
             LocationScoreTable.update(
                 where = {
-                    LocationScoreTable.userId eq locationScore.userId
-                    LocationScoreTable.locationId eq locationScore.locationId
+                    (LocationScoreTable.userId eq locationScore.userId) and
+                            (LocationScoreTable.locationId eq locationScore.locationId)
                 },
                 body = { it[score] = locationScore.score }
             )
@@ -62,8 +63,7 @@ class LocationScoreDaoImpl : ILocationScoreDao {
     override suspend fun getLocationScoreForUser(locationId: Int, userId: String): ServiceResult<LocationScore> = try {
         val dbLocationScore = DatabaseFactory.dbQuery {
             LocationScoreTable.select {
-                LocationScoreTable.userId eq userId
-                LocationScoreTable.locationId eq locationId
+                (LocationScoreTable.userId eq userId) and (LocationScoreTable.locationId eq locationId)
             }.map(::resultRowToLocationScore).single()
         }
         ServiceResult.Success(data = dbLocationScore)
