@@ -1,6 +1,7 @@
 package hr.eduwalk.plugins
 
 import hr.eduwalk.domain.usecase.join.GetLocationsWithScores
+import hr.eduwalk.domain.usecase.join.GetWalksWithScores
 import hr.eduwalk.domain.usecase.location.DeleteLocation
 import hr.eduwalk.domain.usecase.location.GetLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
@@ -101,8 +102,11 @@ fun Application.configureRouting() {
         )
 
         val getLocationsWithScores by inject<GetLocationsWithScores>()
+        val getWalksWithScores by inject<GetWalksWithScores>()
         joinRoutes(
             getLocationsWithScores = getLocationsWithScores,
+            getWalksWithScores = getWalksWithScores,
+            getWalkLocations = getWalkLocations,
         )
     }
 }

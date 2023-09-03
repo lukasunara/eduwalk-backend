@@ -7,6 +7,7 @@ import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.Walk
 import hr.eduwalk.data.model.WalkScore
+import hr.eduwalk.data.model.WalkWithScore
 
 sealed class ServiceResult<out T> {
     data class Success<out T>(val data: T) : ServiceResult<T>()
@@ -28,6 +29,7 @@ fun ServiceResult<List<Question>>.toLocationQuestionsResponse() = when (this) {
         val questions = if (data.size <= 3) data else data.shuffled().subList(0, 3)
         LocationQuestionsResponse(questions = questions)
     }
+
     is ServiceResult.Error -> LocationQuestionsResponse(error = error)
 }
 
@@ -69,6 +71,11 @@ fun ServiceResult<List<Walk>>.toWalksResponse() = when (this) {
 fun ServiceResult<List<String>>.toWalkIdsResponse() = when (this) {
     is ServiceResult.Success -> WalkIdsResponse(walkIds = data)
     is ServiceResult.Error -> WalkIdsResponse(error = error)
+}
+
+fun ServiceResult<List<WalkWithScore>>.toWalksWithScoresResponse() = when (this) {
+    is ServiceResult.Success -> WalksWithScoresResponse(walksWithScores = data)
+    is ServiceResult.Error -> WalksWithScoresResponse(error = error)
 }
 
 fun ServiceResult<Unit>.toEmptyResponse() = when (this) {

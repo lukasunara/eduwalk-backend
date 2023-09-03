@@ -7,6 +7,7 @@ import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.Walk
 import hr.eduwalk.data.model.WalkScore
+import hr.eduwalk.data.model.WalkWithScore
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -72,6 +73,12 @@ data class WalksResponse(
 @Serializable
 data class WalkIdsResponse(
     val walkIds: List<String>? = null,
+    val error: ResponseError? = null,
+)
+
+@Serializable
+data class WalksWithScoresResponse(
+    val walksWithScores: List<WalkWithScore>? = null,
     val error: ResponseError? = null,
 )
 

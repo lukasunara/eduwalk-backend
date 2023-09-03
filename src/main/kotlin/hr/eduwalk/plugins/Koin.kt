@@ -15,6 +15,7 @@ import hr.eduwalk.domain.interfaces.IUserDao
 import hr.eduwalk.domain.interfaces.IWalkDao
 import hr.eduwalk.domain.interfaces.IWalkScoreDao
 import hr.eduwalk.domain.usecase.join.GetLocationsWithScores
+import hr.eduwalk.domain.usecase.join.GetWalksWithScores
 import hr.eduwalk.domain.usecase.location.DeleteLocation
 import hr.eduwalk.domain.usecase.location.GetLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
@@ -112,4 +113,5 @@ val joinModule = module {
     single<IJoinDao> { JoinDaoImpl() }
 
     single { GetLocationsWithScores(get()) }
+    single { GetWalksWithScores(get()) }
 }
