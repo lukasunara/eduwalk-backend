@@ -74,7 +74,7 @@ fun ServiceResult<List<String>>.toWalkIdsResponse() = when (this) {
 }
 
 fun ServiceResult<List<WalkWithScore>>.toWalksWithScoresResponse() = when (this) {
-    is ServiceResult.Success -> WalksWithScoresResponse(walksWithScores = data)
+    is ServiceResult.Success -> WalksWithScoresResponse(walksWithScores = data.toMutableList())
     is ServiceResult.Error -> WalksWithScoresResponse(error = error)
 }
 

@@ -78,7 +78,7 @@ data class WalkIdsResponse(
 
 @Serializable
 data class WalksWithScoresResponse(
-    val walksWithScores: List<WalkWithScore>? = null,
+    val walksWithScores: MutableList<WalkWithScore>? = null,
     val error: ResponseError? = null,
 )
 

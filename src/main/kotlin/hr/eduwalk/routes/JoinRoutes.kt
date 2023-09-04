@@ -53,6 +53,7 @@ fun Route.joinRoutes(
                 }
                 walkWithScore.maxScore = (walkLocationsResponse.locations?.size ?: 0) * 3
             }
+            walksWithScoresResponse.walksWithScores.sortByDescending { it.score.toLong() / it.maxScore }
 
             call.respond(status = HttpStatusCode.OK, message = walksWithScoresResponse)
         }
