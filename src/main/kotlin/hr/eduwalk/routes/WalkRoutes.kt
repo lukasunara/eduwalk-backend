@@ -4,6 +4,7 @@ import hr.eduwalk.data.model.Walk
 import hr.eduwalk.domain.model.UpdateWalkRequestBody
 import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.walk.GetDefaultWalks
+import hr.eduwalk.domain.usecase.walk.GetUserCreatedWalks
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
@@ -24,6 +25,7 @@ fun Route.walkRoutes(
     deleteWalk: DeleteWalk,
     getWalkById: GetWalkById,
     getDefaultWalks: GetDefaultWalks,
+    getUserCreatedWalks: GetUserCreatedWalks,
 ) {
     route(path = "walk") {
         post(path = "create") {
@@ -36,6 +38,14 @@ fun Route.walkRoutes(
         }
         get(path = "getDefaultWalks") {
             val walksResponse = getDefaultWalks()
+            val httpStatusCode = if (walksResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest
+
+            call.respond(status = httpStatusCode, message = walksResponse)
+        }
+        get(path = "getUserCreatedWalks") {
+            val username = call.request.queryParameters.getOrFail("username")
+
+            val walksResponse = getUserCreatedWalks(userId = username)
             val httpStatusCode = if (walksResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest
 
             call.respond(status = httpStatusCode, message = walksResponse)

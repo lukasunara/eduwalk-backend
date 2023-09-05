@@ -22,7 +22,7 @@ object DefaultData {
         Walk(
             id = "testtest",
             title = "Test Walk",
-            description = "Testing the app dunctionalities",
+            description = "Testing the app functionalities",
             creatorId = "testTeacher",
         ),
     )

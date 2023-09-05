@@ -30,6 +30,7 @@ import hr.eduwalk.domain.usecase.user.GetOrInsertUser
 import hr.eduwalk.domain.usecase.user.GetUser
 import hr.eduwalk.domain.usecase.walk.DeleteWalk
 import hr.eduwalk.domain.usecase.walk.GetDefaultWalks
+import hr.eduwalk.domain.usecase.walk.GetUserCreatedWalks
 import hr.eduwalk.domain.usecase.walk.GetWalkById
 import hr.eduwalk.domain.usecase.walk.InsertWalk
 import hr.eduwalk.domain.usecase.walk.UpdateWalk
@@ -73,6 +74,7 @@ val walkModule = module {
     single { UpdateWalk(get()) }
     single { DeleteWalk(get()) }
     single { GetWalkById(get()) }
+    single { GetUserCreatedWalks(get()) }
 }
 
 val locationModule = module {
