@@ -7,6 +7,6 @@ import hr.eduwalk.domain.model.toEmptyResponse
 class DeleteLocation(
     private val locationDao: ILocationDao,
 ) {
-    suspend operator fun invoke(locationId: Int): EmptyResponse =
+    suspend operator fun invoke(locationId: Long): EmptyResponse =
         locationDao.deleteLocation(locationId = locationId).toEmptyResponse()
 }

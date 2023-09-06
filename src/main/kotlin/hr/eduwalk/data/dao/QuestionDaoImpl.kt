@@ -71,7 +71,7 @@ class QuestionDaoImpl : IQuestionDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun deleteQuestion(questionId: Int): ServiceResult<Unit>  = try {
+    override suspend fun deleteQuestion(questionId: Long): ServiceResult<Unit>  = try {
         val dbDeleteResult = DatabaseFactory.dbQuery {
             QuestionTable.deleteWhere { QuestionTable.id eq questionId }
         }
@@ -89,7 +89,7 @@ class QuestionDaoImpl : IQuestionDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun getQuestionsForLocation(locationId: Int): ServiceResult<List<Question>> = try {
+    override suspend fun getQuestionsForLocation(locationId: Long): ServiceResult<List<Question>> = try {
         val dbQuestions = DatabaseFactory.dbQuery {
             QuestionTable.select { QuestionTable.locationId eq locationId }.map(::resultRowToQuestion)
         }

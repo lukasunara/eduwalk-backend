@@ -51,7 +51,7 @@ fun Route.locationRoutes(
                 )
             }
             delete {
-                val locationId = call.parameters.getOrFail<Int>("locationId")
+                val locationId = call.parameters.getOrFail<Long>("locationId")
 
                 val emptyResponse = deleteLocation(locationId = locationId)
                 val httpStatusCode = if (emptyResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest

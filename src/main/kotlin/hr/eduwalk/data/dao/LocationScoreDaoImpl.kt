@@ -60,7 +60,7 @@ class LocationScoreDaoImpl : ILocationScoreDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun getLocationScoreForUser(locationId: Int, userId: String): ServiceResult<LocationScore> = try {
+    override suspend fun getLocationScoreForUser(locationId: Long, userId: String): ServiceResult<LocationScore> = try {
         val dbLocationScore = DatabaseFactory.dbQuery {
             LocationScoreTable.select {
                 (LocationScoreTable.userId eq userId) and (LocationScoreTable.locationId eq locationId)

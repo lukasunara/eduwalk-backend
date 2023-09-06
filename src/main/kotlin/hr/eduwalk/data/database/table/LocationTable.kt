@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Table
 
 object LocationTable : Table() {
 
-    val id = integer(name = "id").autoIncrement()
+    val id = long(name = "id").autoIncrement()
     val latitude = double(name = "latitude")
     val longitude = double(name = "longitude")
     val title = varchar(name = "title", length = 200)

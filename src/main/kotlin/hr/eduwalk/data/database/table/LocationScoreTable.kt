@@ -12,7 +12,7 @@ object LocationScoreTable : Table() {
             onDelete = ReferenceOption.CASCADE,
             onUpdate = ReferenceOption.CASCADE,
         )
-    val locationId = integer(name = "location_id")
+    val locationId = long(name = "location_id")
         .index(isUnique = false)
         .references(
             ref = LocationTable.id,

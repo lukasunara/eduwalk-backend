@@ -18,7 +18,7 @@ import org.sqlite.SQLiteErrorCode
 
 class LocationDaoImpl : ILocationDao {
 
-    override suspend fun getLocationById(locationId: Int): ServiceResult<Location> = try {
+    override suspend fun getLocationById(locationId: Long): ServiceResult<Location> = try {
         val dbLocation = DatabaseFactory.dbQuery {
             LocationTable.select { LocationTable.id eq locationId }.map(::resultRowToLocation).single()
         }
@@ -88,7 +88,7 @@ class LocationDaoImpl : ILocationDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun deleteLocation(locationId: Int): ServiceResult<Unit> = try {
+    override suspend fun deleteLocation(locationId: Long): ServiceResult<Unit> = try {
         val dbDeleteResult = DatabaseFactory.dbQuery {
             LocationTable.deleteWhere { LocationTable.id eq locationId }
         }

@@ -39,7 +39,7 @@ fun Route.questionRoutes(
                 call.respond(status = httpStatusCode, message = emptyResponse)
             }
             delete {
-                val questionId = call.parameters.getOrFail<Int>("questionId")
+                val questionId = call.parameters.getOrFail<Long>("questionId")
 
                 val emptyResponse = deleteQuestion(questionId = questionId)
                 val httpStatusCode = if (emptyResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest
@@ -48,7 +48,7 @@ fun Route.questionRoutes(
             }
         }
         get(path = "{locationId}") {
-            val locationId = call.parameters.getOrFail<Int>("locationId")
+            val locationId = call.parameters.getOrFail<Long>("locationId")
 
             val locationQuestionsResponse = getLocationQuestions(locationId = locationId)
             val httpStatusCode = if (locationQuestionsResponse.error == null) {

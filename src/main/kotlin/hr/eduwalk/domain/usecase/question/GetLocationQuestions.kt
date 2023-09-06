@@ -7,6 +7,6 @@ import hr.eduwalk.domain.model.toLocationQuestionsResponse
 class GetLocationQuestions(
     private val questionDao: IQuestionDao,
 ) {
-    suspend operator fun invoke(locationId: Int): LocationQuestionsResponse =
+    suspend operator fun invoke(locationId: Long): LocationQuestionsResponse =
         questionDao.getQuestionsForLocation(locationId = locationId).toLocationQuestionsResponse()
 }

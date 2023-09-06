@@ -78,7 +78,7 @@ fun Route.locationScoreRoutes(
             call.respond(status = httpStatusCode, message = emptyResponse2)
         }
         get(path = "getLocationScoreForUser") {
-            val locationId = call.request.queryParameters.getOrFail<Int>("locationId")
+            val locationId = call.request.queryParameters.getOrFail<Long>("locationId")
             val username = call.request.queryParameters.getOrFail("username")
 
             val locationScoreResponse = getLocationScoreForUser(locationId = locationId, userId = username)
