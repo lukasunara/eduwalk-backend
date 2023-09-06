@@ -2,7 +2,6 @@ package hr.eduwalk.data.dao
 
 import hr.eduwalk.data.database.DatabaseFactory
 import hr.eduwalk.data.database.table.LocationTable
-import hr.eduwalk.data.database.table.UsersTable
 import hr.eduwalk.data.model.Location
 import hr.eduwalk.domain.interfaces.ILocationDao
 import hr.eduwalk.domain.model.ErrorCode
@@ -36,7 +35,7 @@ class LocationDaoImpl : ILocationDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun insertLocation(location: Location): ServiceResult<Unit> = try {
+    override suspend fun insertLocation(location: Location): ServiceResult<Location> = try {
         DatabaseFactory.dbQuery {
             LocationTable.insert {
                 it[latitude] = location.latitude
@@ -47,7 +46,7 @@ class LocationDaoImpl : ILocationDao {
                 it[thresholdDistance] = location.thresholdDistance
                 it[walkId] = location.walkId
             }.resultedValues?.singleOrNull()?.let {
-                ServiceResult.Success(data = Unit)
+                ServiceResult.Success(data = resultRowToLocation(it))
             } ?: ServiceResult.Error(error = ResponseError(errorCode = ErrorCode.DATABASE_ERROR))
         }
     } catch (e: Exception) {
@@ -91,7 +90,7 @@ class LocationDaoImpl : ILocationDao {
 
     override suspend fun deleteLocation(locationId: Int): ServiceResult<Unit> = try {
         val dbDeleteResult = DatabaseFactory.dbQuery {
-            UsersTable.deleteWhere { LocationTable.id eq locationId }
+            LocationTable.deleteWhere { LocationTable.id eq locationId }
         }
         if (dbDeleteResult == 0) throw RuntimeException()
         ServiceResult.Success(data = Unit)

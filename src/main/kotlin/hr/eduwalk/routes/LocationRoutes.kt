@@ -1,6 +1,7 @@
 package hr.eduwalk.routes
 
 import hr.eduwalk.data.model.Location
+import hr.eduwalk.domain.model.EmptyResponse
 import hr.eduwalk.domain.usecase.location.DeleteLocation
 import hr.eduwalk.domain.usecase.location.GetWalkLocations
 import hr.eduwalk.domain.usecase.location.UpdateOrInsertLocation
@@ -24,19 +25,30 @@ fun Route.locationRoutes(
         post(path = "create") {
             val location = call.receive<Location>()
 
-            val emptyResponse = updateOrInsertLocation(location = location)
-            val httpStatusCode = if (emptyResponse.error == null) HttpStatusCode.Created else HttpStatusCode.BadRequest
+            val locationResponse = updateOrInsertLocation(location = location)
+            val httpStatusCode = if (locationResponse.error == null) {
+                HttpStatusCode.Created
+            } else {
+                HttpStatusCode.BadRequest
+            }
 
-            call.respond(status = httpStatusCode, message = emptyResponse)
+            call.respond(status = httpStatusCode, message = locationResponse)
         }
         route(path = "{locationId}") {
             post("update") {
                 val location = call.receive<Location>()
 
-                val emptyResponse = updateOrInsertLocation(location = location)
-                val httpStatusCode = if (emptyResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest
+                val locationResponse = updateOrInsertLocation(location = location)
+                val httpStatusCode = if (locationResponse.error == null) {
+                    HttpStatusCode.OK
+                } else {
+                    HttpStatusCode.BadRequest
+                }
 
-                call.respond(status = httpStatusCode, message = emptyResponse)
+                call.respond(
+                    status = httpStatusCode,
+                    message = EmptyResponse(data = locationResponse.location?.let { }, error = locationResponse.error),
+                )
             }
             delete {
                 val locationId = call.parameters.getOrFail<Int>("locationId")
