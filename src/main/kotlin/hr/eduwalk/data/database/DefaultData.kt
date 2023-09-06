@@ -30,7 +30,7 @@ object DefaultData {
     val defaultLocations = listOf(
         /* --- Zadar - Poluotok --- */
         Location(
-            id = Long.MAX_VALUE,
+            id = 0,
             latitude = 44.1172458,
             longitude = 15.2198869,
             title = "Morske orgulje",
@@ -39,7 +39,7 @@ object DefaultData {
             walkId = "default1",
         ),
         Location(
-            id = Long.MAX_VALUE - 1,
+            id = 1,
             latitude = 44.1175910,
             longitude = 15.2198283,
             title = "Pozdrav Suncu",
@@ -49,7 +49,7 @@ object DefaultData {
             walkId = "default1",
         ),
         Location(
-            id = Long.MAX_VALUE - 2,
+            id = 2,
             latitude = 44.1158372,
             longitude = 15.2244869,
             title = "Crkva sv. Donata",
@@ -60,7 +60,7 @@ object DefaultData {
         ),
         /* --- Test Walk --- */
         Location(
-            id = Long.MAX_VALUE - 51,
+            id = 51,
             latitude = 44.1385254,
             longitude = 15.2204914,
             title = "Test Location 1",
@@ -70,7 +70,7 @@ object DefaultData {
             walkId = "testtest",
         ),
         Location(
-            id = Long.MAX_VALUE - 52,
+            id = 52,
             latitude = 44.1385762,
             longitude = 15.2209189,
             title = "Test Location 2",
@@ -80,7 +80,7 @@ object DefaultData {
             walkId = "testtest",
         ),
         Location(
-            id = Long.MAX_VALUE - 53,
+            id = 53,
             latitude = 44.1384429,
             longitude = 15.2203862,
             title = "Test Location 3",
@@ -94,7 +94,7 @@ object DefaultData {
     val defaultQuestions = listOf(
         /* --- Test Walk --- */
         Question(
-            id = Long.MAX_VALUE - 1,
+            id = 1,
             questionText = "Test Question 1?",
             answers = listOf(
                 "Test answer 1",
@@ -104,20 +104,20 @@ object DefaultData {
                 "Test answer 5",
             ),
             correctAnswer = "Test answer 3",
-            locationId = Long.MAX_VALUE - 51,
+            locationId = 51,
         ),
         Question(
-            id = Long.MAX_VALUE - 2,
+            id = 2,
             questionText = "Test Question 2?",
             answers = listOf(
                 "Test answer 1",
                 "Test answer 2",
             ),
             correctAnswer = "Test answer 1",
-            locationId = Long.MAX_VALUE - 51,
+            locationId = 51,
         ),
         Question(
-            id = Long.MAX_VALUE - 3,
+            id = 3,
             questionText = "Test Question 3?",
             answers = listOf(
                 "Test answer 1",
@@ -126,10 +126,10 @@ object DefaultData {
                 "Test answer 4",
             ),
             correctAnswer = "Test answer 4",
-            locationId = Long.MAX_VALUE - 51,
+            locationId = 51,
         ),
         Question(
-            id = Long.MAX_VALUE - 4,
+            id = 4,
             questionText = "Test Question 4?",
             answers = listOf(
                 "Test answer 1",
@@ -137,10 +137,10 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 2",
-            locationId = Long.MAX_VALUE - 51,
+            locationId = 51,
         ),
         Question(
-            id = Long.MAX_VALUE - 5,
+            id = 5,
             questionText = "Test Question 5?",
             answers = listOf(
                 "Test answer 1",
@@ -149,10 +149,10 @@ object DefaultData {
                 "Test answer 4",
             ),
             correctAnswer = "Test answer 1",
-            locationId = Long.MAX_VALUE - 51,
+            locationId = 51,
         ),
         Question(
-            id = Long.MAX_VALUE - 6,
+            id = 6,
             questionText = "Test Question 6?",
             answers = listOf(
                 "Test answer 1",
@@ -160,20 +160,20 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 1",
-            locationId = Long.MAX_VALUE - 52,
+            locationId = 52,
         ),
         Question(
-            id = Long.MAX_VALUE - 7,
+            id = 7,
             questionText = "Test Question 7?",
             answers = listOf(
                 "Test answer 1",
                 "Test answer 2",
             ),
             correctAnswer = "Test answer 2",
-            locationId = Long.MAX_VALUE - 52,
+            locationId = 52,
         ),
         Question(
-            id = Long.MAX_VALUE - 8,
+            id = 8,
             questionText = "Test Question 8?",
             answers = listOf(
                 "Test answer 1",
@@ -181,10 +181,10 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 3",
-            locationId = Long.MAX_VALUE - 52,
+            locationId = 52,
         ),
         Question(
-            id = Long.MAX_VALUE - 9,
+            id = 9,
             questionText = "Test Question 9?",
             answers = listOf(
                 "Test answer 1",
@@ -192,20 +192,20 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 1",
-            locationId = Long.MAX_VALUE - 53,
+            locationId = 53,
         ),
         Question(
-            id = Long.MAX_VALUE - 10,
+            id = 10,
             questionText = "Test Question 10?",
             answers = listOf(
                 "Test answer 1",
                 "Test answer 2",
             ),
             correctAnswer = "Test answer 2",
-            locationId = Long.MAX_VALUE - 53,
+            locationId = 53,
         ),
         Question(
-            id = Long.MAX_VALUE - 11,
+            id = 11,
             questionText = "Test Question 11?",
             answers = listOf(
                 "Test answer 1",
@@ -213,7 +213,7 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 3",
-            locationId = Long.MAX_VALUE - 53,
+            locationId = 53,
         ),
     )
 
