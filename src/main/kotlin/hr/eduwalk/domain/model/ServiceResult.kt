@@ -25,11 +25,7 @@ fun ServiceResult<Location>.toLocationResponse() = when (this) {
 }
 
 fun ServiceResult<List<Question>>.toLocationQuestionsResponse() = when (this) {
-    is ServiceResult.Success -> {
-        val questions = if (data.size <= 3) data else data.shuffled().subList(0, 3)
-        LocationQuestionsResponse(questions = questions)
-    }
-
+    is ServiceResult.Success -> LocationQuestionsResponse(questions = data)
     is ServiceResult.Error -> LocationQuestionsResponse(error = error)
 }
 

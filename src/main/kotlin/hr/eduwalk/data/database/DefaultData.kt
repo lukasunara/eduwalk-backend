@@ -131,7 +131,7 @@ object DefaultData {
                 "Test answer 5",
             ),
             correctAnswer = "Test answer 3",
-            locationId = 51,
+            locationId = 6,
         ),
         Question(
             id = 2,
@@ -141,7 +141,7 @@ object DefaultData {
                 "Test answer 2",
             ),
             correctAnswer = "Test answer 1",
-            locationId = 51,
+            locationId = 6,
         ),
         Question(
             id = 3,
@@ -153,7 +153,7 @@ object DefaultData {
                 "Test answer 4",
             ),
             correctAnswer = "Test answer 4",
-            locationId = 51,
+            locationId = 6,
         ),
         Question(
             id = 4,
@@ -164,7 +164,7 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 2",
-            locationId = 51,
+            locationId = 6,
         ),
         Question(
             id = 5,
@@ -176,7 +176,7 @@ object DefaultData {
                 "Test answer 4",
             ),
             correctAnswer = "Test answer 1",
-            locationId = 51,
+            locationId = 6,
         ),
         Question(
             id = 6,
@@ -187,7 +187,7 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 1",
-            locationId = 52,
+            locationId = 6,
         ),
         Question(
             id = 7,
@@ -197,7 +197,7 @@ object DefaultData {
                 "Test answer 2",
             ),
             correctAnswer = "Test answer 2",
-            locationId = 52,
+            locationId = 7,
         ),
         Question(
             id = 8,
@@ -208,7 +208,7 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 3",
-            locationId = 52,
+            locationId = 7,
         ),
         Question(
             id = 9,
@@ -219,7 +219,7 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 1",
-            locationId = 53,
+            locationId = 7,
         ),
         Question(
             id = 10,
@@ -229,7 +229,7 @@ object DefaultData {
                 "Test answer 2",
             ),
             correctAnswer = "Test answer 2",
-            locationId = 53,
+            locationId = 7,
         ),
         Question(
             id = 11,
@@ -240,7 +240,7 @@ object DefaultData {
                 "Test answer 3",
             ),
             correctAnswer = "Test answer 3",
-            locationId = 53,
+            locationId = 7,
         ),
     )
 
