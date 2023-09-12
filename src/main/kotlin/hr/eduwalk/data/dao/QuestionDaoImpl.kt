@@ -18,7 +18,7 @@ import org.sqlite.SQLiteErrorCode
 
 class QuestionDaoImpl : IQuestionDao {
 
-    override suspend fun insertQuestion(question: Question): ServiceResult<Unit> = try {
+    override suspend fun insertQuestion(question: Question): ServiceResult<Question> = try {
         DatabaseFactory.dbQuery {
             QuestionTable.insert {
                 it[questionText] = question.questionText
@@ -30,7 +30,7 @@ class QuestionDaoImpl : IQuestionDao {
                 it[correctAnswer] = question.correctAnswer
                 it[locationId] = question.locationId
             }.resultedValues?.singleOrNull()?.let {
-                ServiceResult.Success(data = Unit)
+                ServiceResult.Success(data = resultRowToQuestion(it))
             } ?: ServiceResult.Error(error = ResponseError(errorCode = ErrorCode.DATABASE_ERROR))
         }
     } catch (e: Exception) {
@@ -60,9 +60,9 @@ class QuestionDaoImpl : IQuestionDao {
                     it[answer4] = question.answers.getOrNull(4)
                     it[correctAnswer] = question.correctAnswer
                 }
-            )
+            ) > 0
         }
-        ServiceResult.Success(data = dbUpdateResult == 1)
+        ServiceResult.Success(data = dbUpdateResult)
     } catch (e: Exception) {
         val errorCode = when (e) {
             is NoSuchElementException -> ErrorCode.UNKNOWN_LOCATION
@@ -71,7 +71,7 @@ class QuestionDaoImpl : IQuestionDao {
         ServiceResult.Error(error = ResponseError(errorCode = errorCode))
     }
 
-    override suspend fun deleteQuestion(questionId: Long): ServiceResult<Unit>  = try {
+    override suspend fun deleteQuestion(questionId: Long): ServiceResult<Unit> = try {
         val dbDeleteResult = DatabaseFactory.dbQuery {
             QuestionTable.deleteWhere { QuestionTable.id eq questionId }
         }

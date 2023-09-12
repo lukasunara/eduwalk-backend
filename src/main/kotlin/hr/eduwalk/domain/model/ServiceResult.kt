@@ -82,3 +82,8 @@ fun ServiceResult<Unit>.toEmptyResponse() = when (this) {
     is ServiceResult.Success -> EmptyResponse(data = data)
     is ServiceResult.Error -> EmptyResponse(error = error)
 }
+
+fun ServiceResult<Question>.toQuestionResponse() = when (this) {
+    is ServiceResult.Success -> QuestionResponse(question = data)
+    is ServiceResult.Error -> QuestionResponse(error = error)
+}

@@ -87,3 +87,9 @@ data class EmptyResponse(
     val data: Unit? = null,
     val error: ResponseError? = null,
 )
+
+@Serializable
+data class QuestionResponse(
+    val question: Question? = null,
+    val error: ResponseError? = null,
+)

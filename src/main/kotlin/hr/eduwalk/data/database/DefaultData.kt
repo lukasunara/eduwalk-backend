@@ -2,9 +2,16 @@ package hr.eduwalk.data.database
 
 import hr.eduwalk.data.model.Location
 import hr.eduwalk.data.model.Question
+import hr.eduwalk.data.model.User
+import hr.eduwalk.data.model.UserRole
 import hr.eduwalk.data.model.Walk
 
 object DefaultData {
+
+    val defaultUsers = listOf(
+        User(username = "testTeacher", role = UserRole.TEACHER),
+        User(username = "testStudent", role = UserRole.STUDENT),
+    )
 
     val defaultWalks = listOf(
         Walk(
@@ -59,10 +66,40 @@ object DefaultData {
             walkId = "default1",
         ),
         /* --- Test Walk --- */
+//        Location(
+//            id = 3,
+//            latitude = 44.1385254,
+//            longitude = 15.2204914,
+//            title = "Test Location 1",
+//            description = "Test description 1",
+//            imageBase64 = null,
+//            thresholdDistance = 10,
+//            walkId = "testtest",
+//        ),
+//        Location(
+//            id = 4,
+//            latitude = 44.1385762,
+//            longitude = 15.2209189,
+//            title = "Test Location 2",
+//            description = "Test description 2",
+//            imageBase64 = null,
+//            thresholdDistance = 30,
+//            walkId = "testtest",
+//        ),
+//        Location(
+//            id = 5,
+//            latitude = 44.1384429,
+//            longitude = 15.2203862,
+//            title = "Test Location 3",
+//            description = "Test description 3",
+//            imageBase64 = null,
+//            thresholdDistance = 7,
+//            walkId = "testtest",
+//        ),
         Location(
-            id = 51,
-            latitude = 44.1385254,
-            longitude = 15.2204914,
+            id = 6,
+            latitude = 45.7857934,
+            longitude = 16.0089301,
             title = "Test Location 1",
             description = "Test description 1",
             imageBase64 = null,
@@ -70,23 +107,13 @@ object DefaultData {
             walkId = "testtest",
         ),
         Location(
-            id = 52,
-            latitude = 44.1385762,
-            longitude = 15.2209189,
+            id = 7,
+            latitude = 45.7854041,
+            longitude = 16.0092406,
             title = "Test Location 2",
             description = "Test description 2",
             imageBase64 = null,
             thresholdDistance = 30,
-            walkId = "testtest",
-        ),
-        Location(
-            id = 53,
-            latitude = 44.1384429,
-            longitude = 15.2203862,
-            title = "Test Location 3",
-            description = "Test description 3",
-            imageBase64 = null,
-            thresholdDistance = 7,
             walkId = "testtest",
         ),
     )

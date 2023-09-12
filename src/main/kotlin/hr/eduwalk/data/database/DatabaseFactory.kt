@@ -8,6 +8,7 @@ import hr.eduwalk.data.database.table.WalkScoreTable
 import hr.eduwalk.data.database.table.WalkTable
 import hr.eduwalk.data.model.Location
 import hr.eduwalk.data.model.Question
+import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.Walk
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
@@ -34,6 +35,7 @@ object DatabaseFactory {
                 WalkScoreTable,
                 LocationScoreTable,
             )
+            createDefaultUsers()
             createDefaultWalks()
             createDefaultLocations()
             createDefaultQuestions()
@@ -41,10 +43,26 @@ object DatabaseFactory {
         }
     }
 
-    suspend fun <T> dbQuery(block: suspend () -> T): T =
-        newSuspendedTransaction(Dispatchers.IO) { block() }
+    suspend fun <T> dbQuery(block: suspend () -> T): T = newSuspendedTransaction(Dispatchers.IO) { block() }
 
-    private fun createDefaultWalks() = DefaultData.defaultWalks.forEach { updateOrCreateWalk(walk = it) }
+    private fun createDefaultUsers() = DefaultData.defaultUsers.forEach(::updateOrCreateUser)
+
+    private fun updateOrCreateUser(user: User) {
+        val existingUser = UsersTable.select { UsersTable.username eq user.username }.singleOrNull()
+        if (existingUser == null) {
+            UsersTable.insert {
+                it[username] = user.username
+                it[role] = user.role
+            }
+        } else {
+            UsersTable.update(
+                where = { UsersTable.username eq user.username },
+                body = { it[role] = user.role },
+            )
+        }
+    }
+
+    private fun createDefaultWalks() = DefaultData.defaultWalks.forEach(::updateOrCreateWalk)
 
     private fun updateOrCreateWalk(walk: Walk) {
         val existingWalk = WalkTable.select { WalkTable.id eq walk.id }.singleOrNull()
@@ -66,8 +84,7 @@ object DatabaseFactory {
         }
     }
 
-    private fun createDefaultLocations() =
-        DefaultData.defaultLocations.forEach { updateOrCreateLocation(location = it) }
+    private fun createDefaultLocations() = DefaultData.defaultLocations.forEach(::updateOrCreateLocation)
 
     private fun updateOrCreateLocation(location: Location) {
         location.id ?: return
@@ -100,7 +117,7 @@ object DatabaseFactory {
     }
 
     private fun createDefaultQuestions() =
-        DefaultData.defaultQuestions.forEach { updateOrCreateQuestion(question = it) }
+        DefaultData.defaultQuestions.forEach(::updateOrCreateQuestion)
 
     private fun updateOrCreateQuestion(question: Question) {
         val existingQuestion = QuestionTable.select { QuestionTable.id eq question.id }.singleOrNull()
@@ -132,8 +149,7 @@ object DatabaseFactory {
         }
     }
 
-//    private fun createDefaultWalkScores() =
-//        DefaultData.defaultWalkScores.forEach { updateOrCreateWalkScore(walkScore = it) }
+//    private fun createDefaultWalkScores() = DefaultData.defaultWalkScores.forEach(::updateOrCreateWalkScore)
 //
 //    private fun updateOrCreateWalkScore(walkScore: WalkScore) {
 //        val existingWalkScore = WalkScoreTable.select {

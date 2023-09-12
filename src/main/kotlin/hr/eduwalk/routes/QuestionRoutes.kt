@@ -1,6 +1,7 @@
 package hr.eduwalk.routes
 
 import hr.eduwalk.data.model.Question
+import hr.eduwalk.domain.model.EmptyResponse
 import hr.eduwalk.domain.usecase.question.DeleteQuestion
 import hr.eduwalk.domain.usecase.question.GetLocationQuestions
 import hr.eduwalk.domain.usecase.question.UpdateOrInsertQuestion
@@ -24,19 +25,30 @@ fun Route.questionRoutes(
         post(path = "create") {
             val question = call.receive<Question>()
 
-            val emptyResponse = updateOrInsertQuestion(question = question)
-            val httpStatusCode = if (emptyResponse.error == null) HttpStatusCode.Created else HttpStatusCode.BadRequest
+            val questionResponse = updateOrInsertQuestion(question = question)
+            val httpStatusCode = if (questionResponse.error == null) {
+                HttpStatusCode.Created
+            } else {
+                HttpStatusCode.BadRequest
+            }
 
-            call.respond(status = httpStatusCode, message = emptyResponse)
+            call.respond(status = httpStatusCode, message = questionResponse)
         }
         route(path = "{questionId}") {
             post("update") {
                 val question = call.receive<Question>()
 
-                val emptyResponse = updateOrInsertQuestion(question = question)
-                val httpStatusCode = if (emptyResponse.error == null) HttpStatusCode.OK else HttpStatusCode.BadRequest
+                val questionResponse = updateOrInsertQuestion(question = question)
+                val httpStatusCode = if (questionResponse.error == null) {
+                    HttpStatusCode.OK
+                } else {
+                    HttpStatusCode.BadRequest
+                }
 
-                call.respond(status = httpStatusCode, message = emptyResponse)
+                call.respond(
+                    status = httpStatusCode,
+                    message = EmptyResponse(data = questionResponse.question?.let { }, error = questionResponse.error),
+                )
             }
             delete {
                 val questionId = call.parameters.getOrFail<Long>("questionId")
