@@ -1,10 +1,12 @@
 package hr.eduwalk.data.database
 
 import hr.eduwalk.data.model.Location
+import hr.eduwalk.data.model.LocationScore
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.UserRole
 import hr.eduwalk.data.model.Walk
+import hr.eduwalk.data.model.WalkScore
 
 object DefaultData {
 
@@ -17,7 +19,7 @@ object DefaultData {
         Walk(
             id = "default1",
             title = "Zadar - Poluotok",
-            description = "Nauči o ljepotama i bogatoj povijesti grada Zadra",
+            description = "Nauči o ljepotama i bogatoj povijesti grada Zadra!\nGrad Zadar je prekrasan obalni grad smješten na jadranskoj obali Hrvatske. Ponosi se bogatom poviješću koja seže unatrag tisućama godina. Grad obiluje povijesnim spomenicima poput rimskih foruma, srednjovjekovnih crkava i utvrda te jedinstvenih atrakcija poput Morskih orgulja i Pozdrava Suncu, čineći ga ne samo povijesnom, već i kulturološkom i estetskom oazom na hrvatskoj obali.",
             creatorId = null,
         ),
         Walk(
@@ -66,10 +68,120 @@ object DefaultData {
             latitude = 44.1158372,
             longitude = 15.2244869,
             title = "Crkva sv. Donata",
-            description = "Crkva iz 8. stoljeća",
+            description = "Crkva sv. Donata u Zadru nalazi se u središnjem dijelu povijesne jezgre grada, na ruševinama antičkoga foruma. Bila je posvećena Sv.Trojstvu, a sadašnje ime nosi od 15. st. po biskupu Donatu koji ju je, prema predaji, dao sagraditi najvjerojatnije početkom 9. st. Nije se sačuvala u prvotnom obliku.\nNedostaje joj južna prigradnja koja je porušena 1930., pa je vidljiva središnja kružna jezgra. Crkva je sastavni dio episkopalnog kompleksa i nadovezuje se na starokršćansku katedralu i biskupsku palaču.\nOd brojnih ulomaka uzidanih u njezine temelje važni su ostaci žrtvenika ili podnožja za kip božanstva na kojemu je natpis posvećen božici Junoni i vrhovnom bogu Jupiteru.",
+            imageBase64 = null,
+            thresholdDistance = 7000000,
+            walkId = "default1",
+        ),
+        Location(
+            id = 8,
+            latitude = 44.1112487,
+            longitude = 15.2299533,
+            title = "Perivoj Vladimira Nazora",
+            description = "park",
+            imageBase64 = null,
+            thresholdDistance = 250,
+            walkId = "default1",
+        ),
+        Location(
+            id = 9,
+            latitude = 44.1124691,
+            longitude = 15.2288827,
+            title = "Pet bunara",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 100,
+            walkId = "default1",
+        ),
+        Location(
+            id = 10,
+            latitude = 44.1122364,
+            longitude = 15.2293474,
+            title = "Perivoj kraljice Jelene Madijevke",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 500,
+            walkId = "default1",
+        ),
+        Location(
+            id = 11,
+            latitude = 44.1106702,
+            longitude = 15.2329503,
+            title = "Jazine",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 25,
+            walkId = "default1",
+        ),
+        Location(
+            id = 12,
+            latitude = 44.1115380,
+            longitude = 15.2258458,
+            title = "Sveučilište u Zadru",
+            description = null,
             imageBase64 = null,
             thresholdDistance = 50,
             walkId = "default1",
+        ),
+        Location(
+            id = 13,
+            latitude = 44.1164286,
+            longitude = 15.2242566,
+            title = "Katedrala sv. Stošije",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 50,
+            walkId = "default1",
+        ),
+        Location(
+            id = 39,
+            latitude = 44.1124691,
+            longitude = 15.2288827,
+            title = "Pet bunara",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 100,
+            walkId = "default2",
+        ),
+        Location(
+            id = 30,
+            latitude = 44.1122364,
+            longitude = 15.2293474,
+            title = "Perivoj kraljice Jelene Madijevke",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 500,
+            walkId = "default2",
+        ),
+        Location(
+            id = 31,
+            latitude = 44.1106702,
+            longitude = 15.2329503,
+            title = "Jazine",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 25,
+            walkId = "default2",
+        ),
+        Location(
+            id = 32,
+            latitude = 44.1115380,
+            longitude = 15.2258458,
+            title = "Sveučilište u Zadru",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 50,
+            walkId = "default2",
+        ),
+        Location(
+            id = 33,
+            latitude = 44.1164286,
+            longitude = 15.2242566,
+            title = "Katedrala sv. Stošije",
+            description = null,
+            imageBase64 = null,
+            thresholdDistance = 50,
+            walkId = "default2",
         ),
         /* --- Test Walk --- */
 //        Location(
@@ -126,7 +238,7 @@ object DefaultData {
             id = 3,
             latitude = 45.8010280,
             longitude = 15.9722677,
-            title = "E Zgrada",
+            title = "E zgrada",
             description = "Test description 1",
             imageBase64 = null,
             thresholdDistance = 10,
@@ -398,13 +510,134 @@ object DefaultData {
             correctAnswer = "Tocan odgovor",
             locationId = 3,
         ),
+        Question(
+            id = 20,
+            questionText = "U kojem stoljeću je sagrađena Crkva sv. Donata?",
+            answers = listOf(
+                "10. stoljeće",
+                "7. stoljeće",
+                "8. stoljeće",
+                "9. stoljeće",
+            ),
+            correctAnswer = "9. stoljeće",
+            locationId = 2,
+        ),
+        Question(
+            id = 21,
+            questionText = "Zvonik koji se uvijek nalazi na slikama Crkve sv. Donata zapravo pripada Katedrali sv. Stošije.",
+            answers = listOf(
+                "Točno",
+                "Netočno",
+            ),
+            correctAnswer = "Točno",
+            locationId = 2,
+        ),
+        Question(
+            id = 22,
+            questionText = "Kako se zove trg na kojemu se nalazi Crkva sv. Donata?",
+            answers = listOf(
+                "Narodni trg",
+                "Forum",
+                "Pet bunara",
+                "Tri bunara",
+            ),
+            correctAnswer = "Forum",
+            locationId = 2,
+        ),
     )
 
-//    val defaultWalkScores = listOf(
-//        WalkScore(
-//            userId = "testStudent",
-//            walkId = "testtest",
-//            score = 9,
-//        ),
-//    )
+    val defaultLocationScores = listOf(
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 0,
+            score = 0,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 1,
+            score = null,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 2,
+            score = null,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 8,
+            score = 1,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 9,
+            score = 2,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 10,
+            score = 3,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 11,
+            score = 3,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 12,
+            score = 0,
+        ),
+        LocationScore(
+            userId = "korisnik123",
+            locationId = 13,
+            score = 1,
+        ),
+    )
+    val defaultWalkScores = listOf(
+        WalkScore(
+            userId = "peroperic",
+            walkId = "default1",
+            score = 24,
+        ),
+        WalkScore(
+            userId = "cookie",
+            walkId = "default1",
+            score = 20,
+        ),
+        WalkScore(
+            userId = "suki7",
+            walkId = "default1",
+            score = 17,
+        ),
+        WalkScore(
+            userId = "waboba",
+            walkId = "default1",
+            score = 14,
+        ),
+        WalkScore(
+            userId = "babo44",
+            walkId = "default1",
+            score = 22,
+        ),
+        WalkScore(
+            userId = "korisnik123",
+            walkId = "wpTU5Smt",
+            score = 21,
+        ),
+        WalkScore(
+            userId = "korisnik123",
+            walkId = "7tNvIqG1",
+            score = 14,
+        ),
+        WalkScore(
+            userId = "korisnik123",
+            walkId = "wjMOtrJU",
+            score = 5,
+        ),
+        WalkScore(
+            userId = "korisnik123",
+            walkId = "default2",
+            score = 10,
+        ),
+    )
 }

@@ -7,12 +7,16 @@ import hr.eduwalk.data.database.table.UsersTable
 import hr.eduwalk.data.database.table.WalkScoreTable
 import hr.eduwalk.data.database.table.WalkTable
 import hr.eduwalk.data.model.Location
+import hr.eduwalk.data.model.LocationScore
 import hr.eduwalk.data.model.Question
 import hr.eduwalk.data.model.User
 import hr.eduwalk.data.model.Walk
+import hr.eduwalk.data.model.WalkScore
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -39,7 +43,9 @@ object DatabaseFactory {
             createDefaultWalks()
             createDefaultLocations()
             createDefaultQuestions()
-//            createDefaultWalkScores()
+//            deleteLocationScores()
+            createDefaultLocationScores()
+            createDefaultWalkScores()
         }
     }
 
@@ -111,6 +117,7 @@ object DatabaseFactory {
                     it[description] = location.description
                     it[imageBase64] = location.imageBase64
                     it[thresholdDistance] = location.thresholdDistance
+                    it[walkId] = location.walkId
                 },
             )
         }
@@ -144,31 +151,60 @@ object DatabaseFactory {
                     it[answer3] = question.answers.getOrNull(3)
                     it[answer4] = question.answers.getOrNull(4)
                     it[correctAnswer] = question.correctAnswer
+                    it[locationId] = question.locationId
                 }
             )
         }
     }
 
-//    private fun createDefaultWalkScores() = DefaultData.defaultWalkScores.forEach(::updateOrCreateWalkScore)
-//
-//    private fun updateOrCreateWalkScore(walkScore: WalkScore) {
-//        val existingWalkScore = WalkScoreTable.select {
-//            (WalkScoreTable.userId eq walkScore.userId) and (WalkScoreTable.walkId eq walkScore.walkId)
-//        }.singleOrNull()
-//
-//        if (existingWalkScore == null) {
-//            WalkScoreTable.insert {
-//                it[walkId] = walkScore.walkId
-//                it[userId] = walkScore.userId
-//                it[score] = walkScore.score
-//            }
-//        } else {
-//            WalkScoreTable.update(
-//                where = {
-//                    (WalkScoreTable.userId eq walkScore.userId) and (WalkScoreTable.walkId eq walkScore.walkId)
-//                },
-//                body = { it[score] = walkScore.score }
-//            )
-//        }
-//    }
+    private fun createDefaultLocationScores() = DefaultData.defaultLocationScores.forEach(::updateOrCreateLocationScore)
+
+    private fun updateOrCreateLocationScore(locationScore: LocationScore) {
+        val existingLocationScore = LocationScoreTable.select {
+            (LocationScoreTable.userId eq locationScore.userId) and (LocationScoreTable.locationId eq locationScore.locationId)
+        }.singleOrNull()
+
+        if (existingLocationScore == null) {
+            LocationScoreTable.insert {
+                it[locationId] = locationScore.locationId
+                it[userId] = locationScore.userId
+                it[score] = locationScore.score
+            }
+        } else {
+            LocationScoreTable.update(
+                where = {
+                    (LocationScoreTable.userId eq locationScore.userId) and (LocationScoreTable.locationId eq locationScore.locationId)
+                },
+                body = { it[score] = locationScore.score }
+            )
+        }
+    }
+
+    private fun deleteLocationScores() {
+        LocationScoreTable.deleteAll()
+        WalkScoreTable.deleteAll()
+    }
+
+    private fun createDefaultWalkScores() = DefaultData.defaultWalkScores.forEach(::updateOrCreateWalkScore)
+
+    private fun updateOrCreateWalkScore(walkScore: WalkScore) {
+        val existingWalkScore = WalkScoreTable.select {
+            (WalkScoreTable.userId eq walkScore.userId) and (WalkScoreTable.walkId eq walkScore.walkId)
+        }.singleOrNull()
+
+        if (existingWalkScore == null) {
+            WalkScoreTable.insert {
+                it[walkId] = walkScore.walkId
+                it[userId] = walkScore.userId
+                it[score] = walkScore.score
+            }
+        } else {
+            WalkScoreTable.update(
+                where = {
+                    (WalkScoreTable.userId eq walkScore.userId) and (WalkScoreTable.walkId eq walkScore.walkId)
+                },
+                body = { it[score] = walkScore.score }
+            )
+        }
+    }
 }
